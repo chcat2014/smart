@@ -23,9 +23,9 @@ class Test1Settings extends Component {
 
     render() {
         const speeds = [
-            {id: 1, name: 'Медленно', value: 30000},
-            {id: 2, name: 'Средне', value: 15000},
-            {id: 3, name: 'Быстро', value: 2000}
+            {id: 1, name: 'Медленно (30 сек)', value: 30000},
+            {id: 2, name: 'Средне (15 сек)', value: 15000},
+            {id: 3, name: 'Быстро (2 сек)', value: 2000}
         ];
 
         const contentSpeed = speeds.map((speed) =>

@@ -31,7 +31,7 @@ class Test1 extends Component {
         switch (this.state.step) {
             default: break;
             case 1:
-                body = <Test1Run onComplete={this.onRunComplete} result={this.state.result}></Test1Run>;
+                body = <Test1Run onComplete={this.onRunComplete} result={this.state.result} settings={this.state.settings}></Test1Run>;
                 break;
             case 2:
                 body = <Test1Result onComplete={this.onResultComplete} result={this.state.result}></Test1Result>;

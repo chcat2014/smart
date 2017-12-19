@@ -4,9 +4,9 @@ class Test1Result extends Component {
     render() {
         return (
             <div>
-                <h2>Result is {this.props.result}</h2>
+                <h2>Сумма: {this.props.result}</h2>
                 <button onClick={this.props.onComplete}>
-                    Back
+                    Заново
                 </button>
             </div>
         );

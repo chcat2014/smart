@@ -13,7 +13,7 @@ class Test1Run extends Component {
 
         this.state = {digit: '', count: 0, sum: 0};
 
-        setTimeout(this.nextTick, 50);
+        this.tick = setTimeout(this.nextTick, 50);
     }
 
     getRandom() {
@@ -30,9 +30,15 @@ class Test1Run extends Component {
                 count: this.state.count + 1,
                 sum: this.state.sum + digit
             });
-            setTimeout(this.nextTick, this.speed);
+            this.tick = setTimeout(this.nextTick, this.speed);
         } else {
             this.props.onComplete(this.state.sum)
+        }
+    }
+
+    componentWillUnmount() {
+        if(this.tick) {
+            clearTimeout(this.tick);
         }
     }
 

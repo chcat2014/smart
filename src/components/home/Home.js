@@ -15,8 +15,7 @@ class Home extends Component {
           To get started, edit <code>src/App.js</code> and save to reload. AAA
         </p>
           <ul>
-              <li><Link to='/'>Home</Link></li>
-              <li><Link to='/test1'>Test1</Link></li>
+              <li><Link to='/test1'>Цифрочки</Link></li>
               <li><Link to='/test2'>Test2</Link></li>
           </ul>
       </div>

@@ -11,11 +11,11 @@ class Test1 extends Component {
         this.onSettingsComplete = this.onSettingsComplete.bind(this);
         this.onRunComplete = this.onRunComplete.bind(this);
         this.onResultComplete = this.onResultComplete.bind(this);
-        this.state = {step: 0, result: 1};
+        this.state = {step: 0, result: 1, settings: {speed: 2000, complexity: 1}};
     }
 
-    onSettingsComplete() {
-        this.setState({step: 1});
+    onSettingsComplete(speed, complexity) {
+        this.setState({step: 1, settings: {speed: speed, complexity: complexity}});
     }
 
     onRunComplete(_result) {
@@ -27,8 +27,9 @@ class Test1 extends Component {
     }
 
     render() {
-        let body = <Test1Settings onComplete={this.onSettingsComplete}></Test1Settings>;
+        let body = <Test1Settings onComplete={this.onSettingsComplete} speed={this.state.settings.speed} complexity={this.state.settings.complexity}></Test1Settings>;
         switch (this.state.step) {
+            default: break;
             case 1:
                 body = <Test1Run onComplete={this.onRunComplete} result={this.state.result}></Test1Run>;
                 break;
@@ -39,8 +40,8 @@ class Test1 extends Component {
 
         return (
             <div>
-                <h1>Test 1</h1>
-                <Link to='/'>Home</Link>
+                <h1>Цифрочки</h1>
+                <Link to='/'>Назад</Link>
                 {body}
             </div>
         );

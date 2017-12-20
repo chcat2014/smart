@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
+import Random from 'random-js';
 
 class Test1Run extends Component {
     constructor(props) {
         super(props);
         this.nextTick = this.nextTick.bind(this);
         this.getRandom = this.getRandom.bind(this);
+
+        this.random = new Random();
 
         this.MAX_COUNT = 5;
         this.speed = this.props.settings.speed;
@@ -17,8 +20,8 @@ class Test1Run extends Component {
     }
 
     getRandom() {
-        const sign = Math.random() > 0.5 ? 1 : -1;
-        const digit = Math.floor(Math.random() * (this.maxNumber - this.minNumber + 1)) + this.minNumber;
+        const sign = this.random.bool() ? 1 : -1;
+        const digit = this.random.integer(this.minNumber, this.maxNumber);
         return sign * digit;
     }
 
@@ -46,7 +49,7 @@ class Test1Run extends Component {
         return (
             <div>
                 <h2>Шаг {this.state.count}: {this.state.digit}</h2>
-                <h3>Сумма: {this.state.sum}</h3>
+                <p>Сумма: {this.state.sum}</p>
             </div>
         );
     }

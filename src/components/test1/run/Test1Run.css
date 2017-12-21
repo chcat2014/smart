@@ -1,0 +1,13 @@
+.Test1Run {
+  text-align: center;
+}
+
+.Test1Run .digit{
+  font-size: 12em;
+  margin: 0;
+
+  /*  Simple transition */
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+}

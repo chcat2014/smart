@@ -40,8 +40,10 @@ class Test1Settings extends Component {
 
         const complexities = [
             {id: 1, name: '1 разряд (1-9)', value: 1},
-            {id: 2, name: '2 разряда (1-99)', value: 2},
-            {id: 3, name: '3 разряда (1-999)', value: 3},
+            {id: 2, name: '2 разряда (10-99)', value: 2},
+            {id: 3, name: '3 разряда (100-999)', value: 3},
+            {id: 4, name: '4 разряда (1000-9999)', value: 4},
+            {id: 5, name: '5 разрядов (10000-99999)', value: 5},
         ];
 
         const contentComplexity = complexities.map((complexity) =>

@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Play from 'material-ui/svg-icons/av/play-arrow';
 
 class Test1Settings extends Component {
     constructor(props) {
@@ -67,9 +69,9 @@ class Test1Settings extends Component {
                     <legend>Сложность: {this.state.complexity}</legend>
                     {contentComplexity}
                 </fieldset>
-                <button onClick={this.onSettingsComplete}>
-                    Начали
-                </button>
+                <FloatingActionButton  onClick={this.onSettingsComplete}>
+                    <Play />
+                </FloatingActionButton>
             </div>
         );
     }

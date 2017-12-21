@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Random from 'random-js';
 import Rating from '../../rating/Rating';
+import Paper from 'material-ui/Paper';
 
 import './Test1Run.css'
 
@@ -60,7 +61,10 @@ class Test1Run extends Component {
         return (
             <div className="Test1Run">
                 <Rating current={this.state.count} total={this.state.maxCount}></Rating>
-                <h1 style={{opacity: this.state.show ? 1 : 0}} className="digit">{this.state.digit > 0 ? '+' : ''}{this.state.digit}&nbsp;</h1>
+                <Paper style={{display: 'inline-block', padding: 30, margin: 20, overflow: 'visible'}} zDepth={1} rounded={false} >
+                    <h1 style={{opacity: this.state.show ? 1 : 0}} className="digit">{this.state.digit > 0 ? '+' : ''}{this.state.digit}&nbsp;</h1>
+                </Paper>
+
                 <p>Сумма: {this.state.sum}</p>
             </div>
         );

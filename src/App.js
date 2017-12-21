@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import './App.css';
 
@@ -10,13 +11,15 @@ import Test2 from './components/test2/Test2';
 class App extends Component {
   render() {
     return (
-        <BrowserRouter>
-            <Switch>
-                <Route exact path='/' component={Home}/>
-                <Route path='/test1' component={Test1}/>
-                <Route path='/test2' component={Test2}/>
-            </Switch>
-        </BrowserRouter>
+        <MuiThemeProvider>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path='/' component={Home}/>
+                    <Route path='/test1' component={Test1}/>
+                    <Route path='/test2' component={Test2}/>
+                </Switch>
+            </BrowserRouter>
+        </MuiThemeProvider>
     );
   }
 }

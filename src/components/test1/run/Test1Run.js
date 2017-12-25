@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+﻿import React, {Component} from 'react';
 import Random from 'random-js';
 import Rating from '../../rating/Rating';
 import Paper from 'material-ui/Paper';
@@ -14,8 +14,8 @@ class Test1Run extends Component {
 
         this.random = new Random();
 
-        this.pauseDelay = this.props.settings.speed * 0.2;
-        this.tickDelay = this.props.settings.speed * 0.8;
+        this.pauseDelay = this.props.settings.speed;
+        this.tickDelay = 100;
         this.minNumber = Math.pow(10, this.props.settings.complexity - 1);
         this.maxNumber = Math.pow(10, this.props.settings.complexity) - 1;
 

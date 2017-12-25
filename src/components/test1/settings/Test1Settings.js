@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+﻿import React, {Component} from 'react';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Play from 'material-ui/svg-icons/av/play-arrow';
 
@@ -25,9 +25,10 @@ class Test1Settings extends Component {
 
     render() {
         const speeds = [
-            {id: 1, name: 'Медленно (30 сек)', value: 30000},
-            {id: 2, name: 'Средне (15 сек)', value: 15000},
-            {id: 3, name: 'Быстро (2 сек)', value: 2000}
+            {id: 1, name: 'Медленно', value: 4000},
+            {id: 2, name: 'Средне', value: 1500},
+            {id: 3, name: 'Быстро', value: 1000},
+            {id: 4, name: 'Очень быстро', value: 600},
         ];
 
         const contentSpeed = speeds.map((speed) =>

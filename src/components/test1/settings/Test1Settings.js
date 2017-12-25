@@ -1,12 +1,17 @@
 ﻿import React, {Component} from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Play from 'material-ui/svg-icons/av/play-arrow';
+import TextField from 'material-ui/TextField';
+
+import './Test1Settings.css'
 
 class Test1Settings extends Component {
     constructor(props) {
         super(props);
         this.onSettingsComplete = this.onSettingsComplete.bind(this);
         this.onSpeedChanged = this.onSpeedChanged.bind(this);
+        this.onSpeedClicked = this.onSpeedClicked.bind(this);
         this.onComplexityChanged = this.onComplexityChanged.bind(this);
         this.state = {speed: this.props.speed, complexity: this.props.complexity};
     }
@@ -16,6 +21,11 @@ class Test1Settings extends Component {
     }
 
     onSpeedChanged(e) {
+        let speed = parseFloat(e.currentTarget.value, 10);
+        this.setState({speed: speed * 1000});
+    }
+
+    onSpeedClicked(e) {
         this.setState({speed: parseInt(e.currentTarget.value, 10)});
     }
 
@@ -33,11 +43,11 @@ class Test1Settings extends Component {
 
         const contentSpeed = speeds.map((speed) =>
             <span key={speed.id}>
-                <input type="radio" name="speed" id={'chkSpeed' + speed.id}
-                       checked={this.state.speed === speed.value}
-                       value={speed.value}
-                       onChange={this.onSpeedChanged}/>
-                <label htmlFor={'chkSpeed' + speed.id}>{speed.name}</label>
+              <RaisedButton label={speed.name}
+                onClick={this.onSpeedClicked}
+                value={speed.value}
+                primary={this.state.speed === speed.value}
+                className="settingsButton"/>
             </span>
         );
 
@@ -60,11 +70,25 @@ class Test1Settings extends Component {
         );
 
         return (
-            <div>
+            <div className="Test1Setings">
                 <h2>Настройки</h2>
                 <fieldset>
                     <legend>Скорость: {this.state.speed}</legend>
                     {contentSpeed}
+                    <TextField
+                      name="inpSpeed"
+                      id="inpSpeed"
+                      type="number"
+                      step="0.1"
+                      value={this.state.speed ? this.state.speed / 1000 : ''}
+                      errorText=""
+                      min="0.3"
+                      max="10"
+                      required
+                      onChange={this.onSpeedChanged}
+                      className="numberField"
+                    />
+                    <span>сек</span>
                 </fieldset>
                 <fieldset>
                     <legend>Сложность: {this.state.complexity}</legend>

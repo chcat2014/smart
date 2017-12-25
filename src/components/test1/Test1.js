@@ -11,7 +11,7 @@ class Test1 extends Component {
         this.onSettingsComplete = this.onSettingsComplete.bind(this);
         this.onRunComplete = this.onRunComplete.bind(this);
         this.onResultComplete = this.onResultComplete.bind(this);
-        this.state = {step: 0, result: 1, settings: {speed: 2000, complexity: 1}};
+        this.state = {step: 0, result: 1, settings: {speed: 1500, complexity: 1}};
     }
 
     onSettingsComplete(speed, complexity) {

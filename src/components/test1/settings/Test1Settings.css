@@ -1,0 +1,11 @@
+.Test1Setings {
+
+}
+
+.Test1Setings .settingsButton{
+  margin: 8px;
+}
+
+.Test1Setings .numberField{
+  width: 60px !important;
+}

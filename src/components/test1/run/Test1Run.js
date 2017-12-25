@@ -16,8 +16,8 @@ class Test1Run extends Component {
 
         this.pauseDelay = this.props.settings.speed;
         this.tickDelay = 100;
-        this.minNumber = Math.pow(10, this.props.settings.complexity - 1);
-        this.maxNumber = Math.pow(10, this.props.settings.complexity) - 1;
+        this.minNumber = Math.pow(10, this.props.settings.minDigits - 1);
+        this.maxNumber = Math.pow(10, this.props.settings.maxDigits) - 1;
 
         this.state = {digit: '', count: 0, sum: 0, maxCount: 5, show: false};
 

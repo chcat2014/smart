@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom'
 
 import Test1Settings from './settings/Test1Settings'
 import Test1Run from './run/Test1Run'
@@ -14,8 +13,13 @@ class Test1 extends Component {
         this.state = {step: 0, result: 1, settings: {speed: 1500, complexity: 1}};
     }
 
-    onSettingsComplete(speed, complexity) {
-        this.setState({step: 1, settings: {speed: speed, complexity: complexity}});
+    onSettingsComplete(cfg) {
+        this.setState({step: 1, settings: {
+          speed: cfg.speed,
+          complexity: cfg.complexity,
+          minDigits: cfg.minDigits,
+          maxDigits: cfg.maxDigits
+        }});
     }
 
     onRunComplete(_result) {
@@ -41,7 +45,6 @@ class Test1 extends Component {
         return (
             <div>
                 <h1>Цифрочки</h1>
-                <Link to='/'>Назад</Link>
                 {body}
             </div>
         );

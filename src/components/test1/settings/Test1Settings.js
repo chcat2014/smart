@@ -3,6 +3,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Play from 'material-ui/svg-icons/av/play-arrow';
 import TextField from 'material-ui/TextField';
+import {Link} from 'react-router-dom'
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import Toggle from 'material-ui/Toggle';
 
 import './Test1Settings.css'
 
@@ -13,11 +17,20 @@ class Test1Settings extends Component {
         this.onSpeedChanged = this.onSpeedChanged.bind(this);
         this.onSpeedClicked = this.onSpeedClicked.bind(this);
         this.onComplexityChanged = this.onComplexityChanged.bind(this);
-        this.state = {speed: this.props.speed, complexity: this.props.complexity};
+        this.onMinDigitsChanged = this.onMinDigitsChanged.bind(this);
+        this.onMaxDigitsChanged = this.onMaxDigitsChanged.bind(this);
+        this.onCheckAnswersChanged = this.onCheckAnswersChanged.bind(this);
+        this.state = {
+          speed: this.props.speed,
+          complexity: this.props.complexity,
+          minDigits: 1,
+          maxDigits: 1,
+          checkAnswers: true
+        };
     }
 
     onSettingsComplete() {
-        this.props.onComplete(this.state.speed, this.state.complexity);
+        this.props.onComplete(this.state);
     }
 
     onSpeedChanged(e) {
@@ -31,6 +44,23 @@ class Test1Settings extends Component {
 
     onComplexityChanged(e) {
         this.setState({complexity: parseInt(e.currentTarget.value, 10)});
+    }
+
+    onMinDigitsChanged(e, key, payload) {
+      const change = {minDigits: payload};
+      if (this.state.maxDigits < payload) {
+        change.maxDigits = payload;
+      }
+      this.setState(change);
+    }
+
+    onMaxDigitsChanged(e, key, payload) {
+      const change = {maxDigits: payload};
+      this.setState(change);
+    }
+
+    onCheckAnswersChanged(e, isChecked) {
+      this.setState({checkAnswers: isChecked});
     }
 
     render() {
@@ -81,7 +111,7 @@ class Test1Settings extends Component {
                       type="number"
                       step="0.1"
                       value={this.state.speed ? this.state.speed / 1000 : ''}
-                      errorText=""
+                      errorText="!"
                       min="0.3"
                       max="10"
                       required
@@ -91,12 +121,43 @@ class Test1Settings extends Component {
                     <span>сек</span>
                 </fieldset>
                 <fieldset>
+                    <legend>Разрядность</legend>
+                    <span>от</span>
+                    <SelectField value={this.state.minDigits} style={{width: 50}}
+                    autoWidth={true} onChange={this.onMinDigitsChanged}>
+                      <MenuItem value={1} primaryText="1" />
+                      <MenuItem value={2} primaryText="2" />
+                      <MenuItem value={3} primaryText="3" />
+                      <MenuItem value={4} primaryText="4" />
+                    </SelectField>
+                    <span>до</span>
+                    <SelectField value={this.state.maxDigits} style={{width: 50}}
+                    autoWidth={true} onChange={this.onMaxDigitsChanged}>
+                      <MenuItem value={1} primaryText="1" />
+                      <MenuItem value={2} primaryText="2" />
+                      <MenuItem value={3} primaryText="3" />
+                      <MenuItem value={4} primaryText="4" />
+                    </SelectField>
+                </fieldset>
+                <fieldset>
                     <legend>Сложность: {this.state.complexity}</legend>
                     {contentComplexity}
                 </fieldset>
-                <FloatingActionButton  onClick={this.onSettingsComplete}>
-                    <Play />
-                </FloatingActionButton>
+                <div style={{width: 300}}>
+                  <Toggle
+                        label="Домашняя работа"
+                        toggled={this.state.checkAnswers}
+                        onToggle={this.onCheckAnswersChanged}
+                      />
+                </div>
+                <div>
+                  <RaisedButton label="Выбрать игру"
+                    containerElement={<Link to='/'/>}
+                    className="settingsButton"/>
+                  <FloatingActionButton  onClick={this.onSettingsComplete}>
+                      <Play />
+                  </FloatingActionButton>
+                </div>
             </div>
         );
     }

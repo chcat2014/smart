@@ -1,7 +1,6 @@
 {
   "name": "smart",
   "version": "0.1.0",
-  "homepage": "http://chcat2014.github.io/smart",
   "private": true,
   "dependencies": {
     "react": "16.2.0",

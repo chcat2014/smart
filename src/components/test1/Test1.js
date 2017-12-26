@@ -18,7 +18,10 @@ class Test1 extends Component {
           speed: cfg.speed,
           complexity: cfg.complexity,
           minDigits: cfg.minDigits,
-          maxDigits: cfg.maxDigits
+          maxDigits: cfg.maxDigits,
+          sum: cfg.sum,
+          checkAnswers: cfg.checkAnswers,
+          maxNumber: cfg.maxNumber
         }});
     }
 

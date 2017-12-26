@@ -9,3 +9,8 @@
 .Test1Setings .numberField{
   width: 60px !important;
 }
+.Test1Setings .flexContainer{
+  display: flex;
+  justify-content:flex-start;
+  align-items:flex-start;
+}

@@ -19,7 +19,13 @@ class Test1Run extends Component {
         this.minNumber = Math.pow(10, this.props.settings.minDigits - 1);
         this.maxNumber = Math.pow(10, this.props.settings.maxDigits) - 1;
 
-        this.state = {digit: '', count: 0, sum: 0, maxCount: 5, show: false};
+        this.state = {
+          digit: '',
+          count: 0,
+          sum: 0,
+          maxCount: this.props.settings.sum,
+          show: false
+        };
 
         this.tick = setTimeout(this.nextTick, 50);
     }

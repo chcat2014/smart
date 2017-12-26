@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom'
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Toggle from 'material-ui/Toggle';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
 import './Test1Settings.css'
 
@@ -20,12 +21,16 @@ class Test1Settings extends Component {
         this.onMinDigitsChanged = this.onMinDigitsChanged.bind(this);
         this.onMaxDigitsChanged = this.onMaxDigitsChanged.bind(this);
         this.onCheckAnswersChanged = this.onCheckAnswersChanged.bind(this);
+        this.onMaxNumberChanged = this.onMaxNumberChanged.bind(this);
+        this.onSumChanged = this.onSumChanged.bind(this);
         this.state = {
           speed: this.props.speed,
           complexity: this.props.complexity,
           minDigits: 1,
           maxDigits: 1,
-          checkAnswers: true
+          checkAnswers: true,
+          maxNumber: 4,
+          sum: 4
         };
     }
 
@@ -42,8 +47,8 @@ class Test1Settings extends Component {
         this.setState({speed: parseInt(e.currentTarget.value, 10)});
     }
 
-    onComplexityChanged(e) {
-        this.setState({complexity: parseInt(e.currentTarget.value, 10)});
+    onComplexityChanged(e, value) {
+        this.setState({complexity: value});
     }
 
     onMinDigitsChanged(e, key, payload) {
@@ -57,6 +62,16 @@ class Test1Settings extends Component {
     onMaxDigitsChanged(e, key, payload) {
       const change = {maxDigits: payload};
       this.setState(change);
+    }
+
+    onMaxNumberChanged(e, key, payload) {
+      const change = {maxNumber: payload};
+      this.setState(change);
+    }
+
+    onSumChanged(e) {
+        let sum = parseFloat(e.currentTarget.value, 10);
+        this.setState({sum: sum});
     }
 
     onCheckAnswersChanged(e, isChecked) {
@@ -78,24 +93,6 @@ class Test1Settings extends Component {
                 value={speed.value}
                 primary={this.state.speed === speed.value}
                 className="settingsButton"/>
-            </span>
-        );
-
-        const complexities = [
-            {id: 1, name: '1 разряд (1-9)', value: 1},
-            {id: 2, name: '2 разряда (10-99)', value: 2},
-            {id: 3, name: '3 разряда (100-999)', value: 3},
-            {id: 4, name: '4 разряда (1000-9999)', value: 4},
-            {id: 5, name: '5 разрядов (10000-99999)', value: 5},
-        ];
-
-        const contentComplexity = complexities.map((complexity) =>
-            <span key={complexity.id}>
-                <input type="radio" name="complexity" id={'chkComplexity' + complexity.id}
-                       checked={this.state.complexity === complexity.value}
-                       value={complexity.value}
-                       onChange={this.onComplexityChanged}/>
-                <label htmlFor={'chkComplexity' + complexity.id}>{complexity.name}</label>
             </span>
         );
 
@@ -141,7 +138,57 @@ class Test1Settings extends Component {
                 </fieldset>
                 <fieldset>
                     <legend>Сложность: {this.state.complexity}</legend>
-                    {contentComplexity}
+                    <div className="flexContainer">
+                      <div>
+                          <RadioButtonGroup name="complexity"
+                          onChange={this.onComplexityChanged}
+                          valueSelected={this.state.complexity}>
+                              <RadioButton
+                                value={0}
+                                label="Новичок, цифры изучены только до "
+                              />
+                            <RadioButton
+                              value={1}
+                              label="Простой"
+                            />
+                            <RadioButton
+                              value={2}
+                              label="Переход через 5 (помощь Брата)"
+                            />
+                            <RadioButton
+                              value={3}
+                              label="Переход через 10 (помощь Друга)"
+                            />
+                          </RadioButtonGroup>
+                      </div>
+                      <div style={{width: 50}}>
+                        <SelectField value={this.state.maxNumber} style={{width: 50}}
+                        autoWidth={true} onChange={this.onMaxNumberChanged}
+                        disabled={this.state.complexity !== 0}>
+                          <MenuItem value={4} primaryText="4" />
+                          <MenuItem value={5} primaryText="5" />
+                          <MenuItem value={6} primaryText="6" />
+                          <MenuItem value={7} primaryText="7" />
+                          <MenuItem value={8} primaryText="8" />
+                        </SelectField>
+                      </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                  <legend>Слагаемых</legend>
+                  <TextField
+                    name="inpSum"
+                    id="inpSum"
+                    type="number"
+                    step="1"
+                    value={this.state.sum}
+                    errorText="!"
+                    min="2"
+                    max="1000"
+                    required
+                    onChange={this.onSumChanged}
+                    className="numberField"
+                  />
                 </fieldset>
                 <div style={{width: 300}}>
                   <Toggle

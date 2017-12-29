@@ -3,6 +3,8 @@ import Random from 'random-js';
 import Rating from '../../rating/Rating';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import {red500, green500} from 'material-ui/styles/colors';
 
 import './Test1Run.css'
 
@@ -13,6 +15,7 @@ class Test1Run extends Component {
         this.nextPause = this.nextPause.bind(this);
         this.getRandom = this.getRandom.bind(this);
         this.nextExercise = this.nextExercise.bind(this);
+        this.onAnswerChanged = this.onAnswerChanged.bind(this);
 
         this.random = new Random();
 
@@ -30,8 +33,15 @@ class Test1Run extends Component {
           show: false,
           exercise: 1,
           exercisesCount: 3,
-          showResult: false
+          showResult: false,
+          answer: null,
+          answerText: null,
+          answerStyle: {color: green500}
         };
+        this.answers = [];
+        for (let i = 0; i < this.state.exercisesCount; i++) {
+          this.answers[i] = false;
+        }
 
         this.tick = setTimeout(this.nextTick, 50);
     }
@@ -66,11 +76,24 @@ class Test1Run extends Component {
         this.setState({
             count: 0,
             sum: 0,
-            exercise: exercise
+            exercise: exercise,
+            answer: null,
+            answerText: null,
+            answerStyle: {color: green500}
         });
         this.tick = setTimeout(this.nextTick, 50);
       } else {
-        this.props.onComplete('FINISH')
+        let correctAnswers = 0;
+        if (!this.showAnswer) {
+          for (let i = 0; i < this.state.exercisesCount; i++) {
+            if (this.answers[i]) {
+              correctAnswers++;
+            }
+          }
+        } else {
+          correctAnswers = -1;
+        }
+        this.props.onComplete(correctAnswers)
       }
     }
 
@@ -81,10 +104,35 @@ class Test1Run extends Component {
         this.tick = setTimeout(this.nextTick, this.tickDelay);
     }
 
+    onAnswerChanged(e) {
+        const answer = parseInt(e.currentTarget.value, 10);
+        this.answers[this.state.exercise - 1] = answer === this.state.sum;
+
+        if (this.answers[this.state.exercise - 1]) {
+          this.setState({
+              answer: e.currentTarget.value,
+              answerText: 'Правильно',
+              answerStyle: {color: green500}
+          });
+        } else {
+          this.setState({
+              answer: e.currentTarget.value,
+              answerText: 'Неправильно',
+              answerStyle: {color: red500}
+          });
+       }
+    }
+
     componentWillUnmount() {
         if(this.tick) {
             clearTimeout(this.tick);
         }
+    }
+
+    componentDidUpdate() {
+      if (this.nameInput) {
+        this.nameInput.focus();
+      }
     }
 
     render() {
@@ -94,13 +142,33 @@ class Test1Run extends Component {
             <h1 style={{opacity: this.state.show ? 1 : 0}} className="digit">{this.state.digit > 0 ? '+' : ''}{this.state.digit}&nbsp;</h1>
         </Paper>
       </div>;
+      const check = <div>
+        <Paper style={{display: 'inline-block', padding: 30, margin: 20, overflow: 'visible'}} zDepth={1} rounded={false} >
+          <TextField
+            type="number"
+            value={this.state.answer}
+            errorText={this.state.answerText}
+            onChange={this.onAnswerChanged}
+            className="numberField"
+            floatingLabelText="Ответ"
+            errorStyle={this.state.answerStyle}
+            ref={(input) => { this.nameInput = input; }}
+          />
+        </Paper>
+        <br />
+        <RaisedButton label="Продолжить"
+          onClick={this.nextExercise}
+          className="settingsButton"/>
+      </div>;
       const res = <div>
           <p>Сумма: {this.state.sum}</p>
           <RaisedButton label="Продолжить"
             onClick={this.nextExercise}
             className="settingsButton"/>
       </div>;
-      const content = this.state.showResult ? res : test;
+      const content = this.state.showResult
+        ? (this.showAnswer ? res : check)
+        : test;
 
         return (
             <div className="Test1Run">

@@ -6,6 +6,7 @@ class Test2 extends Component {
     return (
         <div>
           <h1>Test 2</h1>
+            <p>В разработке</p>
           <Link to='/'>Home</Link>
         </div>
     );

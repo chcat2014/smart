@@ -20,12 +20,10 @@
 }
 
 .Home-intro {
-  font-size: 25px;
-  padding-left:2%;
+  font-size: large;
 }
 
-.Home-intro2 {
-
+.Head-text{
   padding-left:2%;
 }
 @keyframes Home-logo-spin {

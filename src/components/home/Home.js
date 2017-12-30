@@ -17,17 +17,18 @@ class Home extends Component {
                     <img src={logo} className="Home-logo" alt="logo"/>
                     <h1 className="Home-title">Игры для абакуса</h1>
                 </header>
+                <div className="Head-text">
                 <p className="Home-intro">
                     Добро пожаловать
                 </p>
-                <p className="Home-intro2">
-                    Выберите одну из игр ниже</p>
+                <p>Выберите одну из игр ниже</p>
                 <Paper zDepth={1} rounded={false} style={{width: 350}}>
                     <Menu style={{width: 300}}>
                          <MenuItem  leftIcon={<Exposure />} primaryText="Цифрочки" containerElement={<Link to='/test1'/>}/>
                         <MenuItem  leftIcon={<Camera />} primaryText="Test2" containerElement={<Link to='/test2'/>}/>
                     </Menu>
                 </Paper>
+            </div>
             </div>
         );
     }

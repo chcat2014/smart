@@ -44,8 +44,8 @@ class Generator {
           [], // 5
           [], // 6,
           [], // 7
-          [] // 8
-          [], // 9
+          [], // 8
+          [] // 9
         ];
         // allowed numbers
         this.over10plus = [

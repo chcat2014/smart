@@ -1,5 +1,5 @@
 ﻿import React, {Component} from 'react';
-import Random from 'random-js';
+import Generator from '../Generator';
 import Rating from '../../rating/Rating';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -17,12 +17,10 @@ class Test1Run extends Component {
         this.nextExercise = this.nextExercise.bind(this);
         this.onAnswerChanged = this.onAnswerChanged.bind(this);
 
-        this.random = new Random();
+        this.generator = new Generator(this.props.settings);
 
         this.pauseDelay = this.props.settings.speed;
         this.tickDelay = 100;
-        this.minNumber = Math.pow(10, this.props.settings.minDigits - 1);
-        this.maxNumber = Math.pow(10, this.props.settings.maxDigits) - 1;
         this.showAnswer = !this.props.settings.checkAnswers;
 
         this.state = {
@@ -47,8 +45,7 @@ class Test1Run extends Component {
     }
 
     getRandom() {
-        const digit = this.random.integer(this.minNumber, this.maxNumber);
-        return digit;
+        return this.generator.next();
     }
 
     nextTick() {
@@ -57,7 +54,7 @@ class Test1Run extends Component {
             this.setState({
                 digit: digit,
                 count: this.state.count + 1,
-                sum: this.state.sum + digit,
+                sum: this.generator.getSum(),
                 show: true,
                 showResult: false
             });
@@ -72,7 +69,7 @@ class Test1Run extends Component {
     nextExercise() {
       const exercise = this.state.exercise + 1;
       if (exercise <= this.state.exercisesCount) {
-        const digit = this.getRandom();
+        this.generator.nextExercise();
         this.setState({
             count: 0,
             sum: 0,
@@ -127,6 +124,7 @@ class Test1Run extends Component {
         if(this.tick) {
             clearTimeout(this.tick);
         }
+        this.generator.destroy();
     }
 
     componentDidUpdate() {

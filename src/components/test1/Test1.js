@@ -47,9 +47,11 @@ class Test1 extends Component {
 
         return (
             <div>
-                <h1>Цифрочки</h1>
-                {body}
-            </div>
+                <header className="header">
+                     <h1>Цифрочки</h1>
+                </header>
+                 {body}
+             </div>
         );
     }
 }

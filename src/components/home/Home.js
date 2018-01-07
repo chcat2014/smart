@@ -14,14 +14,13 @@ class Home extends Component {
         return (
             <div className="Home">
                 <header className="Home-header">
-                    <img src={logo} className="Home-logo" alt="logo"/>
-                    <h1 className="Home-title">Игры для абакуса</h1>
+                    <h1>Игры для абакуса</h1>
                 </header>
                 <div className="Head-text">
-                <p className="Home-intro">
+                <h2 className="Home-intro">
                     Добро пожаловать
-                </p>
-                <p>Выберите одну из игр ниже</p>
+                </h2>
+                <p>Выберите одну из этих игр</p>
                 <Paper zDepth={1} rounded={false} style={{width: 350}}>
                     <Menu style={{width: 300}}>
                          <MenuItem  leftIcon={<Exposure />} primaryText="Цифрочки" containerElement={<Link to='/test1'/>}/>

@@ -5,7 +5,9 @@ class Test2 extends Component {
   render() {
     return (
         <div>
+            <header>
           <h1>Test 2</h1>
+            </header>
             <p>В разработке</p>
           <Link to='/'>Home</Link>
         </div>

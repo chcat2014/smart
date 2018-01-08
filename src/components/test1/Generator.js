@@ -40,6 +40,7 @@ class Generator {
           [] // 9
         ];
         //forbidden numbers
+        /*
         this.over5minus = [
           [], //0
           [5], // 1
@@ -51,6 +52,20 @@ class Generator {
           [], // 7
           [], // 8
           [] // 9
+        ];
+        */
+        //allowed numbers
+        this.over5minus = [
+          [1, 2, 3, 4, 5, 6, 7, 8, 9], //0
+          [1, 2, 3, 4, 5, 6, 7, 8, 9], // 1
+          [1, 2, 3, 4, 5, 6, 7, 8, 9], // 2
+          [1, 2, 3, 4, 5, 6, 7, 8, 9], // 3
+          [1, 2, 3, 4, 5, 6, 7, 8, 9], // 4
+          [5, 6, 7, 8, 9], // 5
+          [1, 5, 6, 7, 8, 9], // 6,
+          [1, 2, 5, 6, 7, 8, 9], // 7
+          [1, 2, 3, 5, 6, 7, 8, 9], // 8
+          [1, 2, 3, 4, 5, 6, 7, 8, 9] // 9
         ];
         // allowed numbers
         this.over10plus = [
@@ -144,6 +159,64 @@ class Generator {
               } else {
                 const ind = this.random.integer(0, this.over10minus[indS].length - 1);
                 res.push(this.over10minus[indS][ind]);
+              }
+            }
+          }
+        }
+        console.log('res', res);
+        let result = 0;
+        res.forEach((r, ind)=>{
+          result = result + Math.pow(10, res.length - ind - 1) * r;
+        });
+        console.log('result', sign * result);
+        return sign * result;
+      }
+      if (!this.config.over5 && !this.config.over10) {
+        const s = this.sum.toString().split("");
+        console.log('sum',s);
+
+        let digitsCount = this.config.minDigits;
+        const res = [];
+        if (sign === 1) {
+            if (this.config.minDigits !== this.config.maxDigits) {
+              digitsCount = this.random.integer(this.config.minDigits, this.config.maxDigits);
+            }
+
+            for(let i = 1; i <= digitsCount; i++) {
+              let indS = 0;
+              if (s.length - i > 0) {
+                indS = parseInt(s[s.length - i], 10);
+              }
+
+              if (this.over5plus[indS].length === 1) {
+                res.push(this.over5plus[indS][0]);
+              } else {
+                const ind = this.random.integer(0, this.over5plus[indS].length - 1);
+                res.push(this.over5plus[indS][ind]);
+              }
+            }
+        } else {
+          const max = Math.min(this.config.maxDigits, s.length);
+          if (this.config.minDigits < max) {
+            digitsCount = this.random.integer(this.config.minDigits, max);
+          } else {
+            digitsCount = max;
+          }
+
+          for(let i = 1; i <= digitsCount; i++) {
+            let indS = 0;
+            if (s.length - i >= 0) {
+              indS = parseInt(s[s.length - i], 10);
+            }
+
+            if (s.length - i === 0) {
+              res.push(this.random.integer(0, indS));
+            } else {
+              if (this.over5minus[indS].length === 1) {
+                res.push(this.over5minus[indS][0]);
+              } else {
+                const ind = this.random.integer(0, this.over5minus[indS].length - 1);
+                res.push(this.over5minus[indS][ind]);
               }
             }
           }

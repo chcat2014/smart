@@ -39,11 +39,11 @@ class Generator {
             [1, 2, 3], // 6,
             [1, 2], // 7
             [1], // 8
-            [] // 9
+            [0] // 9
         ];
         //allowed numbers
         this.over5minus = [
-            [], //0
+            [0], //0
             [1], // 1
             [1, 2], // 2
             [1, 2, 3], // 3
@@ -91,14 +91,12 @@ class Generator {
             digitsCount = this.random.integer(this.config.minDigits, this.config.maxDigits);
         }
 
-        for (let i = 1; i <= digitsCount; i++) {
-            let indS = 0;
-            if (s.length - i > 0) {
-                indS = parseInt(s[s.length - i], 10);
-            }
+        const d = s.length - digitsCount;
 
-            if (!limitingArray[indS].length) {
-                return this._getDigit(-1);
+        for (let i = 0; i < digitsCount; i++) {
+            let indS = 0;
+            if (s[i + d]) {
+                indS = parseInt(s[i + d], 10);
             }
 
             if (limitingArray[indS].length === 1) {
@@ -108,7 +106,7 @@ class Generator {
                 res.push(limitingArray[indS][ind]);
             }
         }
-
+        console.log(this.sum, '+', res);
         return res;
     }
 
@@ -125,29 +123,28 @@ class Generator {
             digitsCount = max;
         }
 
-        for (let i = 1; i <= digitsCount; i++) {
+        const d = s.length - digitsCount;
+
+        for (let i = 0; i < digitsCount; i++) {
             let indS = 0;
-            if (s.length - i >= 0) {
-                indS = parseInt(s[s.length - i], 10);
+            if (s[i + d]) {
+                indS = parseInt(s[i + d], 10);
             }
 
-            if (s.length - i === 0) {
-                res.push(this.random.integer(0, indS));
+            if (limitingArray[indS].length === 1) {
+                res.push(limitingArray[indS][0]);
             } else {
-                if (limitingArray[indS].length === 1) {
-                    res.push(limitingArray[indS][0]);
-                } else {
-                    const ind = this.random.integer(0, limitingArray[indS].length - 1);
-                    res.push(limitingArray[indS][ind]);
-                }
+                const ind = this.random.integer(0, limitingArray[indS].length - 1);
+                res.push(limitingArray[indS][ind]);
             }
         }
+
+        console.log(this.sum, '-', res);
 
         return res;
     }
 
     _getBeginerDigit() {
-        console.log('_getBeginerDigit', this.sum)
         if (this.sum === 4 || this.sum === this.config.maxNumber) {
             const max = this.config.maxNumber > 5 ? this.config.maxNumber - 5 : this.config.maxNumber;
             return -1 * this.random.integer(1, max);
@@ -162,8 +159,8 @@ class Generator {
         }
     }
 
-    _getDigit(_sign) {
-        let sign = _sign || this.random.bool() ? 1 : -1;
+    _getDigit() {
+        let sign = this.random.bool() ? 1 : -1;
         if ((this.config.complexity === 3) || !this.sum) {
             return sign * this.random.integer(this.config.minNumber, this.config.maxNumber);
         }
@@ -176,14 +173,14 @@ class Generator {
             if (sign === 1) {
                 res = this._getPlusDigit(this.over10plus);
             } else {
-                res = this._getMinusDigit(this.over10plus);
+                res = this._getMinusDigit(this.over10minus);
             }
         }
         if (this.config.complexity === 1) {
             if (sign === 1) {
                 res = this._getPlusDigit(this.over5plus);
             } else {
-                res = this._getMinusDigit(this.over5plus);
+                res = this._getMinusDigit(this.over5minus);
             }
         }
         let result = 0;
@@ -195,7 +192,7 @@ class Generator {
 
     next() {
         let digit = this._getDigit();
-        while (digit + this.sum < 0 && digit !== 0) {
+        while (digit + this.sum < 0 || digit === 0) {
             digit = this._getDigit();
         }
         this.digits.push(digit);

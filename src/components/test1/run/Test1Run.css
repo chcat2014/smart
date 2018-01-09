@@ -2,7 +2,16 @@
   text-align: center;
 }
 
-.Test1Run .digit{
+.Test1Run_Paper {
+  display: inline-block;
+  padding: 30px;
+  margin: 20px;
+  overflow: visible;
+  min-width: 400px;
+  min-height: 300px;
+}
+
+.Test1Run_Digit{
   font-size: 12em;
   margin: 0;
 

@@ -104,9 +104,9 @@ class Test1Run extends Component {
 
     render() {
       const test = <div>
-        <Rating current={this.state.count} total={this.state.maxCount}></Rating>
-        <Paper style={{display: 'inline-block', padding: 30, margin: 20, overflow: 'visible'}} zDepth={1} rounded={false} >
-            <h1 style={{opacity: this.state.show ? 1 : 0}} className="digit">{this.state.digit > 0 ? '+' : ''}{this.state.digit}&nbsp;</h1>
+        <Rating current={this.state.count} total={this.state.maxCount} />
+        <Paper className="Test1Run_Paper" zDepth={1} rounded={false} >
+            <h1 style={{opacity: this.state.show ? 1 : 0}} className="Test1Run_Digit">{this.state.digit > 0 ? '+' : ''}{this.state.digit}</h1>
         </Paper>
       </div>;
       const answer = <Test1Answer onNext={this.nextExercise}

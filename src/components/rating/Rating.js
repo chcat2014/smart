@@ -1,21 +1,25 @@
 import React, {Component} from 'react';
 import Label from 'material-ui/svg-icons/action/label';
 import LabelOutline from 'material-ui/svg-icons/action/label-outline';
-import {red600, blue700} from 'material-ui/styles/colors';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 class Rating extends Component {
+    constructor(props) {
+        super(props);
 
+        this.theme = props.muiTheme;
+    }
     render() {
         const content = [];
         for(let i=1; i<=this.props.total; i++){
             if (i < this.props.current) {
-                content.push(<Label color={blue700} key={i}></Label>);
+                content.push(<Label color={this.theme.palette.primary1Color} key={i} />);
             }
             if (i === this.props.current) {
-                content.push(<Label color={red600} key={i}></Label>);
+                content.push(<Label color={this.theme.palette.accent1Color} key={i} />);
             }
             if (i > this.props.current) {
-                content.push(<LabelOutline color={blue700} key={i}></LabelOutline>);
+                content.push(<LabelOutline color={this.theme.palette.primary1Color} key={i} />);
             }
         }
         return (
@@ -27,4 +31,4 @@ class Rating extends Component {
     }
 }
 
-export default Rating;
+export default muiThemeable()(Rating);

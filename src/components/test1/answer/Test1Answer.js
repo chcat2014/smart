@@ -31,21 +31,12 @@ class Test1Result extends Component {
         const answer = parseInt(e.currentTarget.value, 10);
         const isCorrect = answer === this.sum;
 
-        if (isCorrect) {
-            this.setState({
-                isCorrect: isCorrect,
-                answer: e.currentTarget.value,
-                answerText: 'Правильно',
-                answerStyle: {color: green500}
-            });
-        } else {
-            this.setState({
-                isCorrect: isCorrect,
-                answer: e.currentTarget.value,
-                answerText: 'Неправильно',
-                answerStyle: {color: red500}
-            });
-        }
+        this.setState({
+            isCorrect: isCorrect,
+            answer: e.currentTarget.value,
+            answerText: isCorrect ? 'Правильно' : 'Неправильно',
+            answerStyle: isCorrect ? {color: green500} : {color: red500}
+        });
     }
 
     onNext() {

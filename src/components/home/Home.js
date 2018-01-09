@@ -7,7 +7,6 @@ import Exposure from 'material-ui/svg-icons/image/exposure-plus-1';
 import Camera from 'material-ui/svg-icons/image/camera';
 
 import './Home.css'
-import logo from '../../static/logo.svg';
 
 class Home extends Component {
     render() {

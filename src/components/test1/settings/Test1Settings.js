@@ -26,11 +26,11 @@ class Test1Settings extends Component {
         this.state = {
           speed: this.props.speed,
           complexity: this.props.complexity,
-          minDigits: 1,
-          maxDigits: 1,
-          checkAnswers: true,
-          maxNumber: 4,
-          sum: 4
+          minDigits: this.props.minDigits,
+          maxDigits: this.props.maxDigits,
+          checkAnswers: this.props.checkAnswers,
+          maxNumber: this.props.maxNumber,
+          sum: this.props.sum
         };
     }
 

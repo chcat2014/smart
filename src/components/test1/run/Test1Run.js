@@ -32,8 +32,8 @@ class Test1Run extends Component {
           exercise: 1,
           exercisesCount: 3,
           showResult: false,
-          answer: null,
-          answerText: null,
+          answer: undefined,
+          answerText: undefined,
           answerStyle: {color: green500}
         };
         this.answers = [];
@@ -74,8 +74,8 @@ class Test1Run extends Component {
             count: 0,
             sum: 0,
             exercise: exercise,
-            answer: null,
-            answerText: null,
+            answer: undefined,
+            answerText: undefined,
             answerStyle: {color: green500}
         });
         this.tick = setTimeout(this.nextTick, 50);

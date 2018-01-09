@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import cookie  from 'react-cookies';
 
 import Test1Settings from './settings/Test1Settings'
 import Test1Run from './run/Test1Run'
@@ -10,7 +11,25 @@ class Test1 extends Component {
         this.onSettingsComplete = this.onSettingsComplete.bind(this);
         this.onRunComplete = this.onRunComplete.bind(this);
         this.onResultComplete = this.onResultComplete.bind(this);
-        this.state = {step: 0, result: 1, settings: {speed: 1500, complexity: 1}};
+        this.state = {
+            step: 0,
+            result: 1,
+            settings: {}
+        };
+    }
+
+    componentWillMount() {
+        const defs = {
+            speed: 1500,
+            complexity: 1,
+            minDigits: 1,
+            maxDigits: 1,
+            sum: 4,
+            checkAnswers: true,
+            maxNumber: 4
+        };
+
+        this.setState({settings: cookie.load('test1') || defs});
     }
 
     onSettingsComplete(cfg) {
@@ -23,6 +42,8 @@ class Test1 extends Component {
           checkAnswers: cfg.checkAnswers,
           maxNumber: cfg.maxNumber
         }});
+
+        cookie.save('test1', cfg);
     }
 
     onRunComplete(_result) {
@@ -34,7 +55,15 @@ class Test1 extends Component {
     }
 
     render() {
-        let body = <Test1Settings onComplete={this.onSettingsComplete} speed={this.state.settings.speed} complexity={this.state.settings.complexity}></Test1Settings>;
+        let body = <Test1Settings onComplete={this.onSettingsComplete}
+                                  speed={this.state.settings.speed}
+                                  complexity={this.state.settings.complexity}
+                                  minDigits={this.state.settings.minDigits}
+                                  maxDigits={this.state.settings.maxDigits}
+                                  sum={this.state.settings.sum}
+                                  checkAnswers={this.state.settings.checkAnswers}
+                                  maxNumber={this.state.settings.maxNumber}
+        ></Test1Settings>;
         switch (this.state.step) {
             default: break;
             case 1:

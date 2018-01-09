@@ -139,7 +139,7 @@ class Test1Settings extends Component {
                 <fieldset>
                     <legend>Сложность: {this.state.complexity}</legend>
                     <div className="flexContainer">
-                      <div>
+                      <div style={{width: 330, marginTop: 15}}>
                           <RadioButtonGroup name="complexity"
                           onChange={this.onComplexityChanged}
                           valueSelected={this.state.complexity}>

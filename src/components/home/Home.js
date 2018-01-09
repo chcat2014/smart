@@ -15,18 +15,20 @@ class Home extends Component {
                 <header className="Home-header">
                     <h1>Игры для абакуса</h1>
                 </header>
-                <div className="Head-text">
-                <h2 className="Home-intro">
-                    Добро пожаловать
-                </h2>
-                <p>Выберите одну из этих игр</p>
-                <Paper zDepth={1} rounded={false} style={{width: 350}}>
-                    <Menu style={{width: 300}}>
-                         <MenuItem  leftIcon={<Exposure />} primaryText="Цифрочки" containerElement={<Link to='/test1'/>}/>
-                        <MenuItem  leftIcon={<Camera />} primaryText="Test2" containerElement={<Link to='/test2'/>}/>
-                    </Menu>
-                </Paper>
-            </div>
+                <main>
+                    <div className="Head-text">
+                        <h2 className="Home-intro">
+                            Добро пожаловать
+                        </h2>
+                    </div>
+                    <p>Выберите одну из этих игр</p>
+                    <Paper zDepth={1} rounded={false} style={{display: 'inline-block'}}>
+                        <Menu style={{width: 300}}>
+                            <MenuItem  leftIcon={<Exposure />} primaryText="Цифрочки" containerElement={<Link to='/test1'/>}/>
+                            <MenuItem  leftIcon={<Camera />} primaryText="Test2" containerElement={<Link to='/test2'/>}/>
+                        </Menu>
+                    </Paper>
+                </main>
             </div>
         );
     }

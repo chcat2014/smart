@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router-dom'
 
 class Test2 extends Component {
@@ -6,10 +7,14 @@ class Test2 extends Component {
     return (
         <div>
             <header>
-          <h1>Test 2</h1>
+                <h1>Test 2</h1>
             </header>
-            <p>В разработке</p>
-          <Link to='/'>Home</Link>
+            <main>
+                <p>В разработке</p>
+                <RaisedButton label="Назад"
+                              containerElement={<Link to='/'/>}
+                              primary={true}/>
+            </main>
         </div>
     );
   }

@@ -47,7 +47,11 @@ class Test1 extends Component {
     }
 
     onRunComplete(_result) {
-        this.setState({step: 2, result: _result});
+        if (this.state.checkAnswers) {
+            this.setState({step: 2, result: _result});
+        } else {
+            this.setState({step: 0});
+        }
     }
 
     onResultComplete() {
@@ -63,14 +67,14 @@ class Test1 extends Component {
                                   sum={this.state.settings.sum}
                                   checkAnswers={this.state.settings.checkAnswers}
                                   maxNumber={this.state.settings.maxNumber}
-        ></Test1Settings>;
+        />;
         switch (this.state.step) {
             default: break;
             case 1:
-                body = <Test1Run onComplete={this.onRunComplete} result={this.state.result} settings={this.state.settings}></Test1Run>;
+                body = <Test1Run onComplete={this.onRunComplete} result={this.state.result} settings={this.state.settings}/>;
                 break;
             case 2:
-                body = <Test1Result onComplete={this.onResultComplete} result={this.state.result}></Test1Result>;
+                body = <Test1Result onComplete={this.onResultComplete} result={this.state.result}/>;
                 break;
         }
 
@@ -79,7 +83,9 @@ class Test1 extends Component {
                 <header className="header">
                      <h1>Цифрочки</h1>
                 </header>
+                <main>
                  {body}
+                </main>
              </div>
         );
     }

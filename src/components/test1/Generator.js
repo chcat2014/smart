@@ -212,6 +212,19 @@ class Generator {
         this.sum = 0;
     }
 
+    getExerciseString() {
+        let res = '';
+        this.digits.forEach((d, i) => {
+            if (i === 0) {
+                res = d.toString();
+            } else {
+                const str = d > 0 ? '+' + d : d.toString();
+                res = res + str;
+            }
+        });
+        return res;
+    }
+
     destroy() {
         this.digits.length = 0;
         this.sum = 0;

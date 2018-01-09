@@ -33,6 +33,10 @@ class App extends Component {
           },
           radioButton: {
               checkedColor: indigo700
+          },
+          textField: {
+              floatingLabelColor: indigo700,
+              focusColor: indigo700
           }
       });
     return (

@@ -1,0 +1,14 @@
+.Test1Answer {
+
+}
+
+.Test1Answer_Paper {
+  display: inline-block;
+  padding: 30px;
+  margin: 20px;
+  overflow: visible;
+}
+.Test1Answer_Button {
+  width: 200px;
+  margin: 10px;
+}

@@ -2,9 +2,7 @@
 import Generator from '../Generator';
 import Rating from '../../rating/Rating';
 import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import {red500, green500} from 'material-ui/styles/colors';
+import Test1Answer from '../answer/Test1Answer';
 
 import './Test1Run.css'
 
@@ -15,7 +13,6 @@ class Test1Run extends Component {
         this.nextPause = this.nextPause.bind(this);
         this.getRandom = this.getRandom.bind(this);
         this.nextExercise = this.nextExercise.bind(this);
-        this.onAnswerChanged = this.onAnswerChanged.bind(this);
 
         this.generator = new Generator(this.props.settings);
 
@@ -32,9 +29,7 @@ class Test1Run extends Component {
           exercise: 1,
           exercisesCount: 3,
           showResult: false,
-          answer: undefined,
-          answerText: undefined,
-          answerStyle: {color: green500}
+          exerciseStr: ''
         };
         this.answers = [];
         for (let i = 0; i < this.state.exercisesCount; i++) {
@@ -61,22 +56,21 @@ class Test1Run extends Component {
             this.tick = setTimeout(this.nextPause, this.pauseDelay);
         } else {
           this.setState({
+              exerciseStr:  this.generator.getExerciseString(),
               showResult: true
           });
         }
     }
 
-    nextExercise() {
+    nextExercise(isCorrect) {
+      this.answers[this.state.exercise - 1] = isCorrect;
       const exercise = this.state.exercise + 1;
       if (exercise <= this.state.exercisesCount) {
         this.generator.nextExercise();
         this.setState({
             count: 0,
             sum: 0,
-            exercise: exercise,
-            answer: undefined,
-            answerText: undefined,
-            answerStyle: {color: green500}
+            exercise: exercise
         });
         this.tick = setTimeout(this.nextTick, 50);
       } else {
@@ -101,36 +95,11 @@ class Test1Run extends Component {
         this.tick = setTimeout(this.nextTick, this.tickDelay);
     }
 
-    onAnswerChanged(e) {
-        const answer = parseInt(e.currentTarget.value, 10);
-        this.answers[this.state.exercise - 1] = answer === this.state.sum;
-
-        if (this.answers[this.state.exercise - 1]) {
-          this.setState({
-              answer: e.currentTarget.value,
-              answerText: 'Правильно',
-              answerStyle: {color: green500}
-          });
-        } else {
-          this.setState({
-              answer: e.currentTarget.value,
-              answerText: 'Неправильно',
-              answerStyle: {color: red500}
-          });
-       }
-    }
-
     componentWillUnmount() {
         if(this.tick) {
             clearTimeout(this.tick);
         }
         this.generator.destroy();
-    }
-
-    componentDidUpdate() {
-      if (this.nameInput) {
-        this.nameInput.focus();
-      }
     }
 
     render() {
@@ -140,32 +109,13 @@ class Test1Run extends Component {
             <h1 style={{opacity: this.state.show ? 1 : 0}} className="digit">{this.state.digit > 0 ? '+' : ''}{this.state.digit}&nbsp;</h1>
         </Paper>
       </div>;
-      const check = <div>
-        <Paper style={{display: 'inline-block', padding: 30, margin: 20, overflow: 'visible'}} zDepth={1} rounded={false} >
-          <TextField
-            type="number"
-            value={this.state.answer}
-            errorText={this.state.answerText}
-            onChange={this.onAnswerChanged}
-            className="numberField"
-            floatingLabelText="Ответ"
-            errorStyle={this.state.answerStyle}
-            ref={(input) => { this.nameInput = input; }}
-          />
-        </Paper>
-        <br />
-        <RaisedButton label="Продолжить"
-          onClick={this.nextExercise}
-          className="settingsButton"/>
-      </div>;
-      const res = <div>
-          <p>Сумма: {this.state.sum}</p>
-          <RaisedButton label="Продолжить"
-            onClick={this.nextExercise}
-            className="settingsButton"/>
-      </div>;
+      const answer = <Test1Answer onNext={this.nextExercise}
+                                  sum={this.state.sum}
+                                  showAnswer={this.showAnswer}
+                                  exercise={this.state.exerciseStr}/>;
+
       const content = this.state.showResult
-        ? (this.showAnswer ? res : check)
+        ? answer
         : test;
 
         return (

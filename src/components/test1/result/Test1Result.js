@@ -6,8 +6,6 @@ import {Link} from 'react-router-dom';
 import {lightGreen900, deepOrange700, redA700
 } from 'material-ui/styles/colors';
 
-import './Test1Results.css'
-
 class Test1Result extends Component {
     render() {
       let showResult = <h2>Правильных ответов: {this.props.result}</h2>;

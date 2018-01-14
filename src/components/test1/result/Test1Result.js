@@ -3,8 +3,11 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Replay from 'material-ui/svg-icons/av/replay';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Link} from 'react-router-dom';
+import Paper from 'material-ui/Paper';
 import {lightGreen900, deepOrange700, redA700
 } from 'material-ui/styles/colors';
+
+import'./Test1Result.css'
 
 class Test1Result extends Component {
     render() {
@@ -25,14 +28,16 @@ class Test1Result extends Component {
         return (
             <div>
                 <div>
+                    <Paper className="box">
                 {showResult}
-                    <FloatingActionButton  onClick={this.props.onComplete}>
-                    <Replay />
-                     </FloatingActionButton>
+                    </Paper>
+                    <RaisedButton label="Выбрать игру"
+                                  containerElement={<Link to='/'/>} />
                 </div>
                 <div>
-                     <RaisedButton label="Выбрать игру"
-                     containerElement={<Link to='/'/>} className="settingsButton"/>
+                    <FloatingActionButton  onClick={this.props.onComplete}>
+                        <Replay />
+                    </FloatingActionButton>
                 </div>
             </div>
         );

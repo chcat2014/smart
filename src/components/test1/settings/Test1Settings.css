@@ -1,15 +1,27 @@
-.Test1Setings {
+.Test1Settings {
 
 }
 
-.Test1Setings .settingsButton{
+.Test1Settings_Paper{
+  padding: 8px;
+  min-height: 120px;
+  margin-bottom: 16px;
+}
+
+.Test1Settings_Paper h4{
+  font-weight: bold;
+  margin: 0;
+}
+
+.Test1Settings_Button{
   margin: 8px;
+  width: 160px;
 }
 
-.Test1Setings .numberField{
+.Test1Settings .numberField{
   width: 60px !important;
 }
-.Test1Setings .flexContainer{
+.Test1Settings .flexContainer{
   display: flex;
   justify-content:flex-start;
   align-items:flex-start;

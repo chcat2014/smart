@@ -27,7 +27,7 @@ class Test1Run extends Component {
           maxCount: this.props.settings.sum,
           show: false,
           exercise: 1,
-          exercisesCount: 3,
+          exercisesCount: 10,
           showResult: false,
           exerciseStr: ''
         };

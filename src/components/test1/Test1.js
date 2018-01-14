@@ -47,7 +47,7 @@ class Test1 extends Component {
     }
 
     onRunComplete(_result) {
-        if (this.state.checkAnswers) {
+        if (this.state.settings.checkAnswers) {
             this.setState({step: 2, result: _result});
         } else {
             this.setState({step: 0});
@@ -80,7 +80,7 @@ class Test1 extends Component {
 
         return (
             <div>
-                <header className="header">
+                <header>
                      <h1>Цифрочки</h1>
                 </header>
                 <main>

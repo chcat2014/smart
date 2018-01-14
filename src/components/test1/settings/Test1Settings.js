@@ -3,7 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Play from 'material-ui/svg-icons/av/play-arrow';
 import TextField from 'material-ui/TextField';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Toggle from 'material-ui/Toggle';

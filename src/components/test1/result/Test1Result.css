@@ -1,7 +1,11 @@
-.box{
-    padding: 2px;
-    margin: 5px;
-    margin-left: 0;
-    padding-left: 16px;
-    padding-right: 16px;
+.Test1Result_box{
+    padding: 2px 16px 2px 16px;
+    margin: 5px 5px 16px 0px;
+    text-align: center;
+}
+
+.Test1Result_flexContainer{
+    display: flex;
+    justify-content:flex-start;
+    align-items:flex-start;
 }

@@ -33,7 +33,8 @@ class Test1Settings extends Component {
           maxNumber: this.props.maxNumber,
           sum: this.props.sum,
           speedErrorText: undefined,
-          sumErrorText: undefined
+          sumErrorText: undefined,
+          isValid: true
         };
     }
 
@@ -43,12 +44,13 @@ class Test1Settings extends Component {
 
     onSpeedChanged(e) {
         let speed = parseFloat(e.currentTarget.value, 10);
-        let isCorrect = speed >= 0.1 && speed <= 10;
+        let isCorrect = this.isSpeedValid(speed);
 
         this.setState({
           speed: speed * 1000,
           speedErrorText: isCorrect ? undefined : 'Число от 0.1 до 10'
         });
+        this.validate(speed * 1000);
     }
 
     onSpeedClicked(e) {
@@ -79,15 +81,39 @@ class Test1Settings extends Component {
 
     onSumChanged(e) {
         let sum = parseFloat(e.currentTarget.value, 10);
-        const isCorrect = sum >=2 && sum <= 100;
+        const isCorrect = this.isSumValid(sum);
         this.setState({
           sum: sum,
           sumErrorText: isCorrect ? undefined : 'Число от 2 до 1000'
         });
+        this.validate(undefined, sum);
     }
 
     onCheckAnswersChanged(e, isChecked) {
       this.setState({checkAnswers: isChecked});
+    }
+
+    isSpeedValid(speed) {
+        return !isNaN(speed) && speed >= 0.1 && speed <= 10
+    }
+
+    isSumValid(sum) {
+        return !isNaN(sum) && sum >=2 && sum <= 100
+    }
+
+    validate(speed, sum) {
+        const _speed = speed !== undefined ? speed : this.state.speed;
+        const _sum = sum !== undefined ? sum : this.state.sum;
+        const isValid = this.isSpeedValid(_speed / 1000) && this.isSumValid(_sum);
+        if (this.state.isValid !== isValid) {
+            this.setState({
+                isValid: isValid
+            });
+        }
+    }
+
+    componentDidMount() {
+        this.validate();
     }
 
     render() {
@@ -228,14 +254,14 @@ class Test1Settings extends Component {
                         />
                   </div>
                 </Paper>
-                <div className="flexContainer" style={{justifyContent: 'space-between'}}>
-                  <div style={{padding: 8}}>
+                <div className="Test1Settings_Actions">
+                  <div>
                       <RaisedButton label="Выбрать игру"
                         containerElement={<Link to='/'/>}
                         />
                   </div>
                   <div>
-                    <FloatingActionButton  onClick={this.onSettingsComplete}>
+                    <FloatingActionButton  onClick={this.onSettingsComplete} disabled={!this.state.isValid}>
                         <Play />
                     </FloatingActionButton>
                   </div>

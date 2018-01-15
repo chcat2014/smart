@@ -39,7 +39,10 @@ class Test1Result extends Component {
         });
     }
 
-    onNext() {
+    onNext(e) {
+        if (e) {
+            e.preventDefault();
+        }
         this.props.onNext(this.state.isCorrect);
     }
 
@@ -60,16 +63,18 @@ class Test1Result extends Component {
     render() {
         const check = <div>
             <Paper className="Test1Answer_Paper" zDepth={1} rounded={false} >
-                <TextField
-                    type="number"
-                    value={this.state.answer}
-                    errorText={this.state.answerText}
-                    onChange={this.onAnswerChanged}
-                    className="numberField"
-                    floatingLabelText="Ответ"
-                    errorStyle={this.state.answerStyle}
-                    ref={(input) => { this.nameInput = input; }}
-                />
+                <form onSubmit={this.onNext}>
+                    <TextField
+                        type="number"
+                        value={this.state.answer}
+                        errorText={this.state.answerText}
+                        onChange={this.onAnswerChanged}
+                        className="numberField"
+                        floatingLabelText="Ответ"
+                        errorStyle={this.state.answerStyle}
+                        ref={(input) => { this.nameInput = input; }}
+                    />
+                </form>
             </Paper>
         </div>;
         const answ = this.state.displayAnswer ?

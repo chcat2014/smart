@@ -1,22 +1,40 @@
 .Test1Run {
-  text-align: center;
+  max-width: 870px;
 }
 
+@media only screen
+and (min-device-width : 360px)
+and (max-device-width : 850px) {
+  .Test1Run_Container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+}
 .Test1Run_Paper {
   display: inline-block;
   padding: 30px;
   margin: 20px;
   overflow: visible;
-  min-width: 400px;
-  min-height: 300px;
+  min-width: 300px;
 }
 
 .Test1Run_Digit{
-  font-size: 12em;
+  font-size: 8em;
   margin: 0;
 
   /*  Simple transition */
   -webkit-transition: opacity 0.5s ease-in-out;
   -moz-transition: opacity 0.1s ease-in-out;
   transition: opacity 0.1s ease-in-out;
+}
+
+.Test1Run_Info{
+  text-align: left;
+  min-width: 250px;
+}
+.Test1Run_Result{
+  text-align: center;
+  flex-grow: 1;
 }

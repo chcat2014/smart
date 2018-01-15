@@ -20,3 +20,15 @@ main{
   display: block;
   padding: 12px;
 }
+
+@media only screen
+and (min-device-width : 360px)
+and (max-device-width : 850px) {
+  header{
+    padding: 16px 12px;
+  }
+
+  header h1{
+    font-size: 12px;
+  }
+}

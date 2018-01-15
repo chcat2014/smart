@@ -6,6 +6,7 @@
   padding: 8px;
   min-height: 120px;
   margin-bottom: 16px;
+  max-width: 870px;
 }
 
 .Test1Settings_Paper h4{
@@ -25,4 +26,10 @@
   display: flex;
   justify-content:flex-start;
   align-items:flex-start;
+}
+.Test1Settings_Actions{
+  max-width: 870px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

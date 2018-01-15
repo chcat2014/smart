@@ -139,9 +139,9 @@ class Test1Settings extends Component {
                 <h2>Настройки</h2>
                 <Paper className="Test1Settings_Paper" zDepth={1} rounded={false} >
                   <h4>Скорость</h4>
-                  <div style={{display: 'flex'}}>
-                    <div style={{paddingTop: 18 + 'px', flexGrow: 1}}>{contentSpeed}</div>
-                    <div style={{width: 130 + 'px', minWidth: 130 + 'px'}}>
+                  <div className="Test1Settings_SpeedContainer">
+                    <div className="Test1Settings_SpeedButtons">{contentSpeed}</div>
+                    <div className="Test1Settings_SpeedField">
                         <TextField
                           name="inpSpeed"
                           id="inpSpeed"
@@ -162,8 +162,8 @@ class Test1Settings extends Component {
 
                 <Paper className="Test1Settings_Paper" zDepth={1} rounded={false} >
                     <h4>Разрядность</h4>
-                    <div style={{display: 'flex', paddingTop: 12}}>
-                        <div style={{padding: '16px 8px 8px 8px'}}>от</div>
+                    <div className="Test1Settings_DigitsContainer">
+                        <div className="Test1Settings_DigitsLabel">от</div>
                         <div>
                             <SelectField value={this.state.minDigits}  style={{width: 80}}
                             onChange={this.onMinDigitsChanged}>
@@ -173,7 +173,7 @@ class Test1Settings extends Component {
                               <MenuItem value={4} primaryText="4" />
                             </SelectField>
                         </div>
-                        <div style={{padding: '16px 8px 8px 16px'}}>до</div>
+                        <div className="Test1Settings_DigitsLabel">до</div>
                         <div>
                           <SelectField value={this.state.maxDigits}  style={{width: 80}}
                           onChange={this.onMaxDigitsChanged}>

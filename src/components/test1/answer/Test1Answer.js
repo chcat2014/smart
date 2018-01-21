@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import {green500, red500, indigo700} from "material-ui/styles/colors";
+import {green500, red500} from "material-ui/styles/colors";
 
 import './Test1Answer.css'
 
@@ -13,17 +13,19 @@ class Test1Result extends Component {
         this.onNext = this.onNext.bind(this);
         this.onShowAnswer = this.onShowAnswer.bind(this);
         this.onShowExercise = this.onShowExercise.bind(this);
+        this.onCheck = this.onCheck.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
         this.sum = this.props.sum;
         this.exercise = this.props.exercise;
         this.showAnswer = this.props.showAnswer;
         this.state = {
+            isChecked: false,
             displayAnswer: false,
             displayExercise: false,
             isCorrect: false,
             answer: '',
-            answerText: undefined,
-            answerStyle: {color: indigo700}
+            answerText: 'Неправильно'
         };
     }
 
@@ -32,18 +34,32 @@ class Test1Result extends Component {
         const isCorrect = answer === this.sum;
 
         this.setState({
+            isChecked: false,
             isCorrect: isCorrect,
             answer: e.currentTarget.value,
-            answerText: isCorrect ? 'Правильно' : 'Неправильно',
-            answerStyle: isCorrect ? {color: green500} : {color: red500}
+            answerText: isCorrect ? 'Правильно' : 'Неправильно'
         });
     }
 
-    onNext(e) {
+    onCheck() {
+      this.setState({
+          isChecked: true
+      });
+    }
+
+    onSubmit(e) {
         if (e) {
             e.preventDefault();
         }
-        this.props.onNext(this.state.isCorrect);
+        if (this.state.isChecked) {
+          this.onNext();
+        } else {
+          this.onCheck();
+        }
+    }
+
+    onNext() {
+          this.props.onNext(this.state.isCorrect);
     }
 
     onShowAnswer() {
@@ -61,20 +77,25 @@ class Test1Result extends Component {
     }
 
     render() {
+        const checkRes = this.state.isChecked ?
+          <div className="Test1Answer_CheckResult" style={{color: this.state.isCorrect ? green500 : red500}}>{this.state.answerText}</div>
+          : <RaisedButton label="Проверить"
+                          onClick={this.onCheck}
+                          primary={true}
+                          className="Test1Answer_Button"/>
         const check = <div>
             <Paper className="Test1Answer_Paper" zDepth={1} rounded={false} >
-                <form onSubmit={this.onNext}>
+                <form onSubmit={this.onSubmit}>
                     <TextField
                         type="number"
                         value={this.state.answer}
-                        errorText={this.state.answerText}
                         onChange={this.onAnswerChanged}
                         className="numberField"
                         floatingLabelText="Ответ"
-                        errorStyle={this.state.answerStyle}
                         ref={(input) => { this.nameInput = input; }}
                     />
                 </form>
+                {checkRes}
             </Paper>
         </div>;
         const answ = this.state.displayAnswer ?
@@ -100,7 +121,7 @@ class Test1Result extends Component {
                 {content}
                 <RaisedButton label="Продолжить"
                               onClick={this.onNext}
-                              primary={this.state.isCorrect}
+                              primary={this.state.isCorrect && this.state.isChecked}
                               className="Test1Answer_Button"/>
             </div>
         );

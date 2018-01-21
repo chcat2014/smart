@@ -45,14 +45,14 @@ class Generator {
         this.over5minus = [
             [0], //0
             [1], // 1
-            [1, 2], // 2
-            [1, 2, 3], // 3
-            [1, 2, 3, 4], // 4
+            [1, 1], // 2
+            [1, 1, 2, 2], // 3
+            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4], // 4
             [5], // 5
-            [1, 6], // 6,
-            [1, 2, 7], // 7
-            [1, 2, 3, 8], // 8
-            [1, 2, 3, 4, 9] // 9
+            [1, 1, 1, 1, 6], // 6,
+            [1, 1, 1, 2, 2, 2, 7], // 7
+            [1, 1, 2, 2, 3, 3, 8], // 8
+            [1, 1, 2, 2, 3, 3, 4, 4, 9] // 9
         ];
         // allowed numbers
         this.over10plus = [
@@ -62,18 +62,18 @@ class Generator {
             [1, 2, 3, 4, 5, 6], // X3
             [1, 2, 3, 4, 5], // X4
             [1, 2, 3, 4], // X5
-            [1, 2, 3, 5, 6, 7, 8], // X6,
-            [1, 2, 5, 6, 7], // X7
-            [1, 5, 6], // X8
-            [5] // X9
+            [1, 2, 3], // X6,
+            [1, 2,], // X7
+            [1], // X8
+            [0] // X9
         ];
         // allowed numbers
         this.over10minus = [
             [0], //X0
-            [0, 1, 6], // X1
-            [0, 1, 2, 6, 7], // X2
-            [0, 1, 2, 3, 6, 7, 8], // X3
-            [0, 1, 2, 3, 4, 6, 7, 8, 9], // X4
+            [0, 1], // X1
+            [0, 1, 1, 2], // X2
+            [0, 1, 1, 2, 2, 3], // X3
+            [0, 1, 1, 2, 3, 4], // X4
             [0, 1, 2, 3, 4, 5], // X5
             [0, 1, 2, 3, 4, 5, 6], // X6,
             [0, 1, 2, 3, 4, 5, 6, 7], // X7
@@ -170,16 +170,18 @@ class Generator {
 
         let res = [];
         if (this.config.complexity === 2) {
-            if (sign === 1) {
+            if (sign === 1 && this.sum < 9) {
                 res = this._getPlusDigit(this.over10plus);
             } else {
+                sign = -1;
                 res = this._getMinusDigit(this.over10minus);
             }
         }
         if (this.config.complexity === 1) {
-            if (sign === 1) {
+            if (sign === 1 && this.sum < 9) {
                 res = this._getPlusDigit(this.over5plus);
             } else {
+                sign = -1;
                 res = this._getMinusDigit(this.over5minus);
             }
         }

@@ -3,6 +3,7 @@ import Generator from '../Generator';
 import Rating from '../../rating/Rating';
 import Paper from 'material-ui/Paper';
 import Test1Answer from '../answer/Test1Answer';
+import AudioHelper from '../AudioHelper';
 
 import './Test1Run.css'
 
@@ -36,6 +37,8 @@ class Test1Run extends Component {
             this.answers[i] = false;
         }
 
+        this.audio = new AudioHelper();
+
         this.tick = setTimeout(this.nextTick, 50);
     }
 
@@ -54,6 +57,7 @@ class Test1Run extends Component {
                 showResult: false
             });
             this.tick = setTimeout(this.nextPause, this.pauseDelay);
+            this.audio.play(digit);
         } else {
             this.setState({
                 exerciseStr: this.generator.getExerciseString(),

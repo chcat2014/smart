@@ -13,10 +13,51 @@ import audio9 from '../../mp3/9.mp3';
 let instance = null;
 class AudioHelper {
   constructor() {
-        if(!instance){
-              instance = this;
+    this.ctx = null;
+    this.buffer = null;
+    this._init = this._init.bind(this);
+    this._load = this._load.bind(this);
+    this.play = this.play.bind(this);
+      if(!instance){
+            instance = this;
+
+            this._init();
+      }
+      return instance;
+    }
+
+      _init() {
+        try {
+          window.AudioContext = window.AudioContext||window.webkitAudioContext;
+          this.ctx = new AudioContext();
+
+          this._load();
+        } catch(e) { }
+      }
+
+      _load() {
+        if (!this.ctx) {
+          return;
         }
-        return instance;
+        this.ctx.decodeAudioData(plus,
+          (decodedArrayBuffer) => {
+            this.buffer = decodedArrayBuffer;
+          });
+      }
+
+      play(num) {
+        if (!this.ctx) {
+          return;
+        }
+        var source = this.ctx.createBufferSource();
+        // подключаем буфер к источнику
+        source.buffer = this.buffer;
+        // дефолтный получатель звука
+        var destination = this.ctx.destination;
+        // подключаем источник к получателю
+        source.connect(destination);
+        // воспроизводим
+        source.start(0);
       }
 }
 

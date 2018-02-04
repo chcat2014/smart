@@ -57,7 +57,9 @@ class Test1Run extends Component {
                 showResult: false
             });
             this.tick = setTimeout(this.nextPause, this.pauseDelay);
-            this.audio.play(digit);
+            if (this.props.settings.sound) {
+              this.audio.play(digit);
+            }
         } else {
             this.setState({
                 exerciseStr: this.generator.getExerciseString(),

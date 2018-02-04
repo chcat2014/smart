@@ -106,7 +106,7 @@ class Generator {
                 res.push(limitingArray[indS][ind]);
             }
         }
-        console.log(this.sum, '+', res);
+        //console.log(this.sum, '+', res);
         return res;
     }
 
@@ -139,7 +139,7 @@ class Generator {
             }
         }
 
-        console.log(this.sum, '-', res);
+        //console.log(this.sum, '-', res);
 
         return res;
     }

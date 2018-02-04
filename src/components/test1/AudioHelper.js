@@ -1,23 +1,31 @@
-import plus from '../../mp3/+.mp3';
-import minus from '../../mp3/-.mp3';
-import audio1 from '../../mp3/1.mp3';
-import audio2 from '../../mp3/2.mp3';
-import audio3 from '../../mp3/3.mp3';
-import audio4 from '../../mp3/4.mp3';
-import audio5 from '../../mp3/5.mp3';
-import audio6 from '../../mp3/6.mp3';
-import audio7 from '../../mp3/7.mp3';
-import audio8 from '../../mp3/8.mp3';
-import audio9 from '../../mp3/9.mp3';
+import BufferLoader from './BufferLoader'
+
+const urls = [
+  '/mp3/+.mp3',
+  '/mp3/-.mp3',
+  '/mp3/1.mp3',
+  '/mp3/2.mp3',
+  '/mp3/3.mp3',
+  '/mp3/4.mp3',
+  '/mp3/5.mp3',
+  '/mp3/6.mp3',
+  '/mp3/7.mp3',
+  '/mp3/8.mp3',
+  '/mp3/9.mp3'
+];
 
 let instance = null;
 class AudioHelper {
   constructor() {
     this.ctx = null;
-    this.buffer = null;
+    this.bufferSources = [];
     this._init = this._init.bind(this);
-    this._load = this._load.bind(this);
+    this.load = this.load.bind(this);
     this.play = this.play.bind(this);
+    this._onLoad = this._onLoad.bind(this);
+    this.isBuffering = false;
+    this.isBuffered = false;
+    this.onBuffered = null;
       if(!instance){
             instance = this;
 
@@ -28,21 +36,30 @@ class AudioHelper {
 
       _init() {
         try {
-          window.AudioContext = window.AudioContext||window.webkitAudioContext;
-          this.ctx = new AudioContext();
-
-          this._load();
-        } catch(e) { }
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)()
+        } catch(e) {
+            console.error(e);
+        }
       }
 
-      _load() {
-        if (!this.ctx) {
+      load() {
+        if (!this.ctx || this.isBuffered) {
           return;
         }
-        this.ctx.decodeAudioData(plus,
-          (decodedArrayBuffer) => {
-            this.buffer = decodedArrayBuffer;
-          });
+        this.isBuffering = true;
+        var bufferLoader = new BufferLoader(this.ctx, urls, this._onLoad);
+
+        bufferLoader.load();
+
+      }
+      _onLoad(bufferList) {
+        this.bufferSources = bufferList;
+        this.isBuffering = false;
+        this.isBuffered = true;
+
+        if (this.onBuffered) {
+          this.onBuffered();
+        }
       }
 
       play(num) {
@@ -50,14 +67,20 @@ class AudioHelper {
           return;
         }
         var source = this.ctx.createBufferSource();
-        // подключаем буфер к источнику
-        source.buffer = this.buffer;
-        // дефолтный получатель звука
-        var destination = this.ctx.destination;
-        // подключаем источник к получателю
-        source.connect(destination);
-        // воспроизводим
+        source.buffer = num > 0 ? this.bufferSources[0] : this.bufferSources[1];
+        source.connect(this.ctx.destination);
         source.start(0);
+        source.onended = () => {
+          source.disconnect(this.ctx.destination);
+
+          var source2 = this.ctx.createBufferSource();
+          source2.buffer = this.bufferSources[Math.abs(num) + 1];
+          source2.connect(this.ctx.destination);
+          source2.start(0);
+          source2.onended = () => {
+            source2.disconnect(this.ctx.destination);
+          }
+        }
       }
 }
 

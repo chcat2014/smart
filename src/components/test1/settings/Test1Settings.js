@@ -22,6 +22,7 @@ class Test1Settings extends Component {
         this.onMinDigitsChanged = this.onMinDigitsChanged.bind(this);
         this.onMaxDigitsChanged = this.onMaxDigitsChanged.bind(this);
         this.onCheckAnswersChanged = this.onCheckAnswersChanged.bind(this);
+        this.onSound = this.onSound.bind(this);
         this.onMaxNumberChanged = this.onMaxNumberChanged.bind(this);
         this.onSumChanged = this.onSumChanged.bind(this);
         this.state = {
@@ -32,9 +33,11 @@ class Test1Settings extends Component {
           checkAnswers: this.props.checkAnswers,
           maxNumber: this.props.maxNumber,
           sum: this.props.sum,
+          sound: this.props.sound,
           speedErrorText: undefined,
           sumErrorText: undefined,
-          isValid: true
+          isValid: true,
+          isSoundEnable: this.props.maxDigits === 1 && this.props.speed >= 1000
         };
     }
 
@@ -45,16 +48,33 @@ class Test1Settings extends Component {
     onSpeedChanged(e) {
         let speed = parseFloat(e.currentTarget.value, 10);
         let isCorrect = this.isSpeedValid(speed);
+        const msSpeed = speed * 1000;
+        let sound = this.state.sound;
+        if (msSpeed < 1000) {
+          sound = false;
+        }
 
         this.setState({
-          speed: speed * 1000,
+          speed: msSpeed,
+          sound: sound,
+          isSoundEnable: this.state.maxDigits === 1 && msSpeed >= 1000,
           speedErrorText: isCorrect ? undefined : 'Число от 0.1 до 10'
         });
-        this.validate(speed * 1000);
+        this.validate(msSpeed);
     }
 
     onSpeedClicked(e) {
-        this.setState({speed: parseInt(e.currentTarget.value, 10)});
+      const msSpeed = parseInt(e.currentTarget.value, 10);
+      let sound = this.state.sound;
+      if (msSpeed < 1000) {
+        sound = false;
+      }
+
+        this.setState({
+          speed: msSpeed,
+          sound: sound,
+          isSoundEnable: this.state.maxDigits === 1 && msSpeed >= 1000
+        });
     }
 
     onComplexityChanged(e, value) {
@@ -62,15 +82,28 @@ class Test1Settings extends Component {
     }
 
     onMinDigitsChanged(e, key, payload) {
-      const change = {minDigits: payload};
+      const change = {
+        minDigits: payload
+      };
       if (this.state.maxDigits < payload) {
+        if (payload > 1) {
+          change.sound = false;
+          change.isSoundEnable = false;
+        }
         change.maxDigits = payload;
       }
       this.setState(change);
     }
 
     onMaxDigitsChanged(e, key, payload) {
-      const change = {maxDigits: payload};
+      const change = {
+        maxDigits: payload,
+        isSoundEnable: payload === 1 && this.state.speed >= 1000
+      };
+      if (payload > 1) {
+        change.sound = false;
+      }
+
       this.setState(change);
     }
 
@@ -91,6 +124,10 @@ class Test1Settings extends Component {
 
     onCheckAnswersChanged(e, isChecked) {
       this.setState({checkAnswers: isChecked});
+    }
+
+    onSound(e, isChecked) {
+      this.setState({sound: isChecked});
     }
 
     isSpeedValid(speed) {
@@ -251,6 +288,16 @@ class Test1Settings extends Component {
                           label="Домашняя работа"
                           toggled={this.state.checkAnswers}
                           onToggle={this.onCheckAnswersChanged}
+                        />
+                  </div>
+                </Paper>
+                <Paper className="Test1Settings_Paper" zDepth={1} rounded={false}>
+                  <div style={{width: 240, padding: '24px 8px'}}>
+                    <Toggle
+                          label="Звук"
+                          disabled={!this.state.isSoundEnable}
+                          toggled={this.state.sound}
+                          onToggle={this.onSound}
                         />
                   </div>
                 </Paper>

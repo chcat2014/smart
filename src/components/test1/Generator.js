@@ -194,7 +194,8 @@ class Generator {
 
     next() {
         let digit = this._getDigit();
-        while (digit + this.sum < 0 || digit === 0) {
+        while (digit + this.sum < 0 || digit === 0
+          || (this.config.complexity === 1 && digit + this.sum === 0)) {
             digit = this._getDigit();
         }
         this.digits.push(digit);

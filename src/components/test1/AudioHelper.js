@@ -1,17 +1,17 @@
 import BufferLoader from './BufferLoader'
 
 const urls = [
-  '/mp3/+.mp3',
-  '/mp3/-.mp3',
-  '/mp3/1.mp3',
-  '/mp3/2.mp3',
-  '/mp3/3.mp3',
-  '/mp3/4.mp3',
-  '/mp3/5.mp3',
-  '/mp3/6.mp3',
-  '/mp3/7.mp3',
-  '/mp3/8.mp3',
-  '/mp3/9.mp3'
+  '/mp3/+.aac',
+  '/mp3/-.aac',
+  '/mp3/1.aac',
+  '/mp3/2.aac',
+  '/mp3/3.aac',
+  '/mp3/4.aac',
+  '/mp3/5.aac',
+  '/mp3/6.aac',
+  '/mp3/7.aac',
+  '/mp3/8.aac',
+  '/mp3/9.aac'
 ];
 
 let instance = null;

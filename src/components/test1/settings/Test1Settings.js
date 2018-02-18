@@ -10,14 +10,14 @@ import Toggle from 'material-ui/Toggle';
 import Paper from 'material-ui/Paper';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
-import './Test1Settings.css'
+import './Test1Settings.css';
+import Speed from '../../common/speed/Speed.js';
 
 class Test1Settings extends Component {
     constructor(props) {
         super(props);
         this.onSettingsComplete = this.onSettingsComplete.bind(this);
         this.onSpeedChanged = this.onSpeedChanged.bind(this);
-        this.onSpeedClicked = this.onSpeedClicked.bind(this);
         this.onComplexityChanged = this.onComplexityChanged.bind(this);
         this.onMinDigitsChanged = this.onMinDigitsChanged.bind(this);
         this.onMaxDigitsChanged = this.onMaxDigitsChanged.bind(this);
@@ -45,36 +45,18 @@ class Test1Settings extends Component {
         this.props.onComplete(this.state);
     }
 
-    onSpeedChanged(e) {
-        let speed = parseFloat(e.currentTarget.value, 10);
-        let isCorrect = this.isSpeedValid(speed);
-        const msSpeed = speed * 1000;
+    onSpeedChanged(speed) {
         let sound = this.state.sound;
-        if (msSpeed < 1000) {
+        if (speed < 1000) {
           sound = false;
         }
 
         this.setState({
-          speed: msSpeed,
+          speed: speed,
           sound: sound,
-          isSoundEnable: this.state.maxDigits === 1 && msSpeed >= 1000,
-          speedErrorText: isCorrect ? undefined : 'Число от 0.1 до 10'
+          isSoundEnable: this.state.maxDigits === 1 && speed >= 1000,
         });
-        this.validate(msSpeed);
-    }
-
-    onSpeedClicked(e) {
-      const msSpeed = parseInt(e.currentTarget.value, 10);
-      let sound = this.state.sound;
-      if (msSpeed < 1000) {
-        sound = false;
-      }
-
-        this.setState({
-          speed: msSpeed,
-          sound: sound,
-          isSoundEnable: this.state.maxDigits === 1 && msSpeed >= 1000
-        });
+        this.validate(speed);
     }
 
     onComplexityChanged(e, value) {
@@ -130,18 +112,13 @@ class Test1Settings extends Component {
       this.setState({sound: isChecked});
     }
 
-    isSpeedValid(speed) {
-        return !isNaN(speed) && speed >= 0.1 && speed <= 10
-    }
-
     isSumValid(sum) {
         return !isNaN(sum) && sum >=2 && sum <= 100
     }
 
     validate(speed, sum) {
-        const _speed = speed !== undefined ? speed : this.state.speed;
         const _sum = sum !== undefined ? sum : this.state.sum;
-        const isValid = this.isSpeedValid(_speed / 1000) && this.isSumValid(_sum);
+        const isValid = this.props.speed && this.isSumValid(_sum);
         if (this.state.isValid !== isValid) {
             this.setState({
                 isValid: isValid
@@ -174,30 +151,9 @@ class Test1Settings extends Component {
         return (
             <div className="Test1Settings">
                 <h2>Настройки</h2>
-                <Paper className="Test1Settings_Paper" zDepth={1} rounded={false} >
-                  <h4>Скорость</h4>
-                  <div className="Test1Settings_SpeedContainer">
-                    <div className="Test1Settings_SpeedButtons">{contentSpeed}</div>
-                    <div className="Test1Settings_SpeedField">
-                        <TextField
-                          name="inpSpeed"
-                          id="inpSpeed"
-                          type="number"
-                          step="0.1"
-                          value={this.state.speed ? this.state.speed / 1000 : ''}
-                          errorText={this.state.speedErrorText}
-                          min="0.3"
-                          max="10"
-                          required
-                          onChange={this.onSpeedChanged}
-                          fullWidth={true}
-                          floatingLabelText="Секунды"
-                        />
-                    </div>
-                  </div>
-                </Paper>
-
-                <Paper className="Test1Settings_Paper" zDepth={1} rounded={false} >
+                <Speed value={this.props.speed}
+                onChange={this.onSpeedChanged}/>
+                <Paper className="setingsPaper" zDepth={1} rounded={false} >
                     <h4>Разрядность</h4>
                     <div className="Test1Settings_DigitsContainer">
                         <div className="Test1Settings_DigitsLabel">от</div>
@@ -222,7 +178,7 @@ class Test1Settings extends Component {
                         </div>
                     </div>
                 </Paper>
-                <Paper className="Test1Settings_Paper" zDepth={1} rounded={false}>
+                <Paper className="setingsPaper" zDepth={1} rounded={false}>
                     <h4>Сложность</h4>
                     <div className="flexContainer">
                       <div style={{width: 330, marginTop: 15}}>
@@ -261,7 +217,7 @@ class Test1Settings extends Component {
                     </div>
                 </Paper>
 
-                <Paper className="Test1Settings_Paper" zDepth={1} rounded={false}>
+                <Paper className="setingsPaper" zDepth={1} rounded={false}>
                   <h4>Слагаемыe</h4>
                   <div className="flexContainer"  style={{padding: 8}}>
                     <div style={{padding: '15px 8px 8px'}}>Сколько цифр будем складывать</div>
@@ -282,7 +238,7 @@ class Test1Settings extends Component {
                       </div>
                     </div>
                 </Paper>
-                <Paper className="Test1Settings_Paper" zDepth={1} rounded={false}>
+                <Paper className="setingsPaper" zDepth={1} rounded={false}>
                   <div style={{width: 240, padding: '24px 8px'}}>
                     <Toggle
                           label="Домашняя работа"
@@ -291,7 +247,7 @@ class Test1Settings extends Component {
                         />
                   </div>
                 </Paper>
-                <Paper className="Test1Settings_Paper" zDepth={1} rounded={false}>
+                <Paper className="setingsPaper" zDepth={1} rounded={false}>
                   <div style={{width: 240, padding: '24px 8px'}}>
                     <Toggle
                           label="Звук"

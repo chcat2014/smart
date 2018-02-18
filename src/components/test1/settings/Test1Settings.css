@@ -28,21 +28,6 @@
   align-items:flex-start;
 }
 
-.Test1Settings_SpeedContainer{
-  display: flex;
-  min-height: 100px;
-}
-
-.Test1Settings_SpeedButtons{
-  padding-top: 18px;
-  flex-grow: 1;
-}
-
-.Test1Settings_SpeedField{
-  width: 130px;
-  min-width: 130px;
-}
-
 .Test1Settings_DigitsContainer{
   display: flex;
   padding-top: 12px;

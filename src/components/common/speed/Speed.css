@@ -1,0 +1,20 @@
+.Speed_SpeedContainer{
+    display: flex;
+    min-height: 100px;
+}
+
+.Speed_SpeedButtons{
+    padding-top: 18px;
+    flex-grow: 1;
+}
+
+.Speed_SpeedField{
+    width: 130px;
+    min-width: 130px;
+}
+
+
+.Speed_Button{
+    margin: 8px;
+    width: 160px;
+}

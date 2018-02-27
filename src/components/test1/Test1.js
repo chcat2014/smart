@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import cookie  from 'react-cookies';
+import cookie from 'react-cookies';
 
 import Test1Settings from './settings/Test1Settings'
 import Test1Run from './run/Test1Run'
@@ -39,36 +39,39 @@ class Test1 extends Component {
         this.setState({settings: settings});
 
         if (settings.sound) {
-          this.audio.load();
+            this.audio.load();
         }
     }
 
     onSettingsComplete(cfg) {
-      let nextStep = 1;
-      if (cfg.sound) {
-        if (!this.audio.isBuffered) {
-          if (!this.audio.isBuffering) {
-            this.audio.load();
-          }
-          nextStep = 3;
-          this.audio.onBuffered = () => {
-            this.setState({step: 1});
-          }
+        let nextStep = 1;
+        if (cfg.sound) {
+            if (!this.audio.isBuffered) {
+                if (!this.audio.isBuffering) {
+                    this.audio.load();
+                }
+                nextStep = 3;
+                this.audio.onBuffered = () => {
+                    this.setState({step: 1});
+                }
+            }
         }
-      }
 
-        this.setState({step: nextStep, settings: {
-          speed: cfg.speed,
-          complexity: cfg.complexity,
-          minDigits: cfg.minDigits,
-          maxDigits: cfg.maxDigits,
-          sum: cfg.sum,
-          checkAnswers: cfg.checkAnswers,
-          maxNumber: cfg.maxNumber,
-          sound: cfg.sound
-        }});
+        const settings = {
+            speed: cfg.speed,
+            complexity: cfg.complexity,
+            minDigits: cfg.minDigits,
+            maxDigits: cfg.maxDigits,
+            sum: cfg.sum,
+            checkAnswers: cfg.checkAnswers,
+            maxNumber: cfg.maxNumber,
+            sound: cfg.sound
+        };
 
-        cookie.save('test1', cfg);
+        this.setState({
+            step: nextStep, settings: settings});
+
+        cookie.save('test1', settings);
     }
 
     onRunComplete(_result) {
@@ -95,9 +98,11 @@ class Test1 extends Component {
                                   sound={this.state.settings.sound}
         />;
         switch (this.state.step) {
-            default: break;
+            default:
+                break;
             case 1:
-                body = <Test1Run onComplete={this.onRunComplete} result={this.state.result} settings={this.state.settings}/>;
+                body = <Test1Run onComplete={this.onRunComplete} result={this.state.result}
+                                 settings={this.state.settings}/>;
                 break;
             case 2:
                 body = <Test1Result onComplete={this.onResultComplete} result={this.state.result}/>;
@@ -110,12 +115,12 @@ class Test1 extends Component {
         return (
             <div>
                 <header>
-                     <h1>Цифрочки</h1>
+                    <h1>Цифрочки</h1>
                 </header>
                 <main>
-                 {body}
+                    {body}
                 </main>
-             </div>
+            </div>
         );
     }
 }

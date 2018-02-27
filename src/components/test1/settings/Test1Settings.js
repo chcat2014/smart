@@ -116,9 +116,14 @@ class Test1Settings extends Component {
         return !isNaN(sum) && sum >=2 && sum <= 100
     }
 
+    isSpeedValid(speed) {
+        return !isNaN(speed) && speed >= 0.1 && speed <= 10
+    }
+
     validate(speed, sum) {
         const _sum = sum !== undefined ? sum : this.state.sum;
-        const isValid = this.props.speed && this.isSumValid(_sum);
+        const _speed = speed !== undefined ? speed : this.state.speed;
+        const isValid = this.isSpeedValid(_speed / 1000) && this.isSumValid(_sum);
         if (this.state.isValid !== isValid) {
             this.setState({
                 isValid: isValid

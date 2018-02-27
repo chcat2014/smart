@@ -4,7 +4,7 @@ import Paper from 'material-ui/Paper';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Exposure from 'material-ui/svg-icons/image/exposure-plus-1';
-import Camera from 'material-ui/svg-icons/image/camera';
+import Bones from 'material-ui/svg-icons/action/settings-input-component';
 
 import './Home.css'
 
@@ -25,7 +25,7 @@ class Home extends Component {
                     <Paper zDepth={1} rounded={false} style={{display: 'inline-block'}}>
                         <Menu style={{width: 300}}>
                             <MenuItem  leftIcon={<Exposure />} primaryText="Цифрочки" containerElement={<Link to='/test1'/>}/>
-                            <MenuItem  leftIcon={<Camera />} primaryText="Test2" containerElement={<Link to='/test2'/>}/>
+                            <MenuItem  leftIcon={<Bones />} primaryText="Косточки" containerElement={<Link to='/test2'/>}/>
                         </Menu>
                     </Paper>
                 </main>

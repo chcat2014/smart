@@ -24,9 +24,7 @@ class Speed extends Component {
             speed: msSpeed,
             speedErrorText: isCorrect ? undefined : 'Число от 0.1 до 10'
         });
-        if (isCorrect) {
-            this.props.onChange(msSpeed);
-        }
+        this.props.onChange(msSpeed);
     }
     isSpeedValid(speed) {
         return !isNaN(speed) && speed >= 0.1 && speed <= 10

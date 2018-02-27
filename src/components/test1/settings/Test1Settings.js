@@ -136,23 +136,6 @@ class Test1Settings extends Component {
     }
 
     render() {
-        const speeds = [
-            {id: 1, name: 'Медленно', value: 4000},
-            {id: 2, name: 'Средне', value: 1500},
-            {id: 3, name: 'Быстро', value: 1000},
-            {id: 4, name: 'Очень быстро', value: 600},
-        ];
-
-        const contentSpeed = speeds.map((speed) =>
-            <span key={speed.id}>
-              <RaisedButton label={speed.name}
-                onClick={this.onSpeedClicked}
-                value={speed.value}
-                primary={this.state.speed === speed.value}
-                className="Test1Settings_Button"/>
-            </span>
-        );
-
         return (
             <div className="Test1Settings">
                 <h2>Настройки</h2>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-import Test2Settings from './Test2Settings/Test2Settings';
+import Test2Settings from './settings/Test2Settings';
 import Test2Run from './run/Test2Run';
 import cookie from "react-cookies";
 

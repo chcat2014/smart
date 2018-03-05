@@ -1,0 +1,19 @@
+.Test2Run {
+  text-align: center;
+}
+
+.Board{
+  width: 500px;
+  margin: 0 auto 10px;
+  border: 10px solid #303f9f;
+  border-radius: 5px;
+  position: relative;
+}
+.Delimeter{
+  position: absolute;
+  width: 500px;
+  height: 10px;
+  overflow: hidden;
+  border-top: 10px solid #303f9f;
+  top: 60px;
+}

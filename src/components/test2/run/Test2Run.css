@@ -2,12 +2,18 @@
   text-align: center;
 }
 
-.Board{
+.Test2Run .wrapper {
   width: 500px;
   margin: 0 auto 10px;
+  position: relative;
+}
+
+.Board{
   border: 10px solid #303f9f;
   border-radius: 5px;
-  position: relative;
+  display: flex;
+  justify-content:center;
+  align-items:center;
 }
 .Delimeter{
   position: absolute;
@@ -15,5 +21,6 @@
   height: 10px;
   overflow: hidden;
   border-top: 10px solid #303f9f;
-  top: 60px;
+  top: 70px;
+  margin: 0 auto;
 }

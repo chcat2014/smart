@@ -34,7 +34,7 @@ class Spindle extends Component {
 
     render() {
         var bones = this.getBones().map((b, i) => {
-            return <Bone isShift={b} position={i}></Bone>
+            return <Bone isShift={b} position={i} key={i}></Bone>
         });
         return (
             <div className="Spindle">

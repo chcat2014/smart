@@ -38,8 +38,10 @@ class Test1Run extends Component {
         }
 
         this.audio = new AudioHelper();
+    }
 
-        this.tick = setTimeout(this.nextTick, 50);
+    componentWillMount() {
+      this.nextTick();
     }
 
     getRandom() {

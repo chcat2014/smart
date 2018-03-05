@@ -1,6 +1,8 @@
 .Spindle {
-  display: inline-block;
   position: relative;
-  height: 222px;
-  width: 70px;
+  height: 220px;
+  width: 60px;
+  background-image: url('./../../../assets/spindle.png');
+  background-repeat: repeat-y;
+  background-position: 13px 0;
 }

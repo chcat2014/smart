@@ -49,8 +49,6 @@ class Test2Run extends Component {
         this.state = {
             values: []
         };
-
-        this.tick = setTimeout(this.nextTick, 50);
     }
     isChangeble(iteration) {
         var c = this.props.settings.complexity;
@@ -90,6 +88,10 @@ class Test2Run extends Component {
         this.props.onBack();
     }
 
+    componentWillMount() {
+      this.nextTick();
+    }
+
     componentWillUnmount() {
         if (this.tick) {
             clearTimeout(this.tick);
@@ -102,9 +104,11 @@ class Test2Run extends Component {
         });
         return (
             <div className="Test2Run">
-                <div className="Board">
-                    {content}
-                    <div className="Delimeter"></div>
+                <div className="wrapper">
+                    <div className="Board">
+                        {content}
+                    </div>
+                    <div className="Delimeter"> </div>
                 </div>
                 <RaisedButton label="Назад" onClick={this.stop}/>
             </div>

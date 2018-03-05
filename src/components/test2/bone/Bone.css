@@ -1,8 +1,7 @@
 .Bone {
   position: absolute;
-  background-color: aqua;
-  width: 50px;
+  width: 41px;
   height: 30px;
-  border: 1px solid #303f9f;
+  background-image: url('./../../../assets/bone.png');
   transition: top 0.1s
 }

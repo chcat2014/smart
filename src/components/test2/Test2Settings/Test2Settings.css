@@ -1,0 +1,45 @@
+.Test2Settings {
+
+}
+
+.Test2Settings_Paper{
+  padding: 8px;
+  min-height: 100px;
+  margin-bottom: 16px;
+  max-width: 870px;
+}
+
+.Test2Settings_Paper h4{
+  font-weight: bold;
+  margin: 0;
+}
+
+.Test2Settings_Button{
+  margin: 8px;
+  width: 160px;
+}
+
+.Test2Settings .numberField{
+  width: 60px !important;
+}
+.Test2Settings .flexContainer{
+  display: flex;
+  justify-content:flex-start;
+  align-items:flex-start;
+}
+
+.Test2Settings_DigitsContainer{
+  display: flex;
+  padding-top: 12px;
+}
+
+.Test2Settings_DigitsLabel{
+  padding: 16px 8px 8px 16px;
+}
+
+.Test2Settings_Actions{
+  max-width: 870px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

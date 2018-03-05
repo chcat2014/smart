@@ -21,7 +21,7 @@ class Test2 extends Component {
         const defs = {
             speed: 1500,
             complexity: 1,
-            maxNumber: 4
+            maxNumber: 9
         };
 
         const settings = cookie.load('test2') || defs;
@@ -47,7 +47,12 @@ class Test2 extends Component {
 
     render() {
 
-        var content = this.state.view === 0 ? <Test2Settings onChange={this.run}/> : <Test2Run onChange={this.back}/>;
+        var content = this.state.view === 0 ?
+            <Test2Settings onChange={this.run}
+                           speed={this.state.settings.speed}
+                           complexity={this.state.settings.complexity}
+                           maxNumber={this.state.settings.maxNumber}/>
+            : <Test2Run onBack={this.back} settings={this.state.settings}/>;
 
         return (
             <div>

@@ -3,7 +3,7 @@
 }
 
 .Test2Run .wrapper {
-  width: 500px;
+  width: 335px;
   margin: 0 auto 10px;
   position: relative;
 }
@@ -17,7 +17,7 @@
 }
 .Delimeter{
   position: absolute;
-  width: 500px;
+  width: 335px;
   height: 10px;
   overflow: hidden;
   border-top: 10px solid #303f9f;
